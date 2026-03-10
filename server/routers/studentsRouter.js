@@ -20,7 +20,7 @@ router.post("/create", async (req, res) => {
     }
 });
 
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:studentId", async (req, res) => {
     const { studentId } = req.params;
     const { firstName, lastName, phone } = req.body;
     try {
@@ -35,7 +35,7 @@ router.patch("/update/:id", async (req, res) => {
     }
 });
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:studentId", async (req, res) => {
     const { studentId } = req.params;
     try {
         const student = await studendsServices.remove(studentId);

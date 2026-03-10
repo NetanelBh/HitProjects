@@ -1,5 +1,9 @@
 import * as studentsRepo from "../repos/studentsRepo.js";
 
+export const getStudentById = (studentId) => {
+    return studentsRepo.getStudentById(studentId);
+};
+
 export const create = (firstName, lastName, phone, studentId) => {
     return studentsRepo.createStudent(firstName, lastName, phone, studentId);
 };

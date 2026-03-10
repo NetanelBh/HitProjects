@@ -18,3 +18,19 @@ export const update = (projectId, newData) => {
 export const remove = (projectId) => {
     return projectsModel.findByIdAndDelete(projectId);
 };
+
+export const addStudent = (projectId, studentId) => {
+    return projectsModel.findByIdAndUpdate(
+        projectId,
+        { $addToSet: { students: studentId } },
+        { new: true },
+    );
+};
+
+export const removeStudent = (projectId, studentId) => {
+    return projectsModel.findByIdAndUpdate(
+        projectId,
+        { $pull: { students: studentId } },
+        { new: true },
+    );
+};

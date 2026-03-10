@@ -1,6 +1,7 @@
 import express from "express";
 
 import * as projectsServices from "../services/projectsServices.js";
+import { create, getStudentById } from "../services/studentsServices.js";
 
 const router = express.Router();
 
@@ -50,20 +51,38 @@ router.patch("/update/:projectId", async (req, res) => {
 	}
 });
 
-router.patch("/projects/:id/add-student", async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { studentId } = req.body;
+router.patch("/projects/:projectId/add-student", async (req, res) => {
+	const { projectId } = req.params;
+	const { studentData } = req.body;
 
-        const project = await projectsServices.addStudent(id, studentId);
-        if (!project) {
-            return res.send({ status: false, data: "Project update failed" });
-        }
+	try {
+        let student = await getStudentById(studentData.id);
+		// Check if the student created already, if not, create it
+		if (!student) {
+			try {
+				student = await create(
+					studentData.firstName,
+					studentData.lastName,
+					studentData.phone,
+					studentData.id,
+				);
+				if (!student) {
+					return res.send({ status: false, data: "Student creation failed" });
+				}
+			} catch (error) {
+				return res.send({ status: false, data: error.message });
+			}
+		}
 
-        res.send({ status: true, data: project });
-    } catch (error) {
-        res.send({ status: false, data: error.message });
-    }
+		const updatedProject = await projectsServices.addStudent(projectId, student.studentId);
+		if (!updatedProject) {
+			return res.send({ status: false, data: "Add student to project failed" });
+		}
+
+		res.send({ status: true, data: updatedProject });
+	} catch (error) {
+		res.send({ status: false, data: error.message });
+	}
 });
 
 router.delete("/delete/:projectId", async (req, res) => {
