@@ -25,9 +25,9 @@ app.use(
 mongoConnection();
 
 app.use("/auth", authRoute);
-app.use("/users", authenticationMiddleware, usersRoute);
-app.use("/projects", authenticationMiddleware, projectRoute);
+app.use("/users", /*authenticationMiddleware,*/ usersRoute);
 app.use("/students", authenticationMiddleware, studentRoute);
+app.use("/projects", authenticationMiddleware, projectRoute);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);

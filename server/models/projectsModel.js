@@ -14,6 +14,11 @@ const projectSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		lecturer: {
+			type: Schema.Types.ObjectId,
+			ref: "User",
+			required: true,
+		},
 		students: [
 			{
 				type: Schema.Types.ObjectId,

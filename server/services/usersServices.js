@@ -8,4 +8,4 @@ export const createUser = (fName, lName, email, password) => {
     return usersRepo.createUser(fName, lName, email, password);
 };
 
-export const updateUser = (userId, updatedUser) => usersRepo.updateUser(userId, updatedUser);
+export const updateUser = (userId, updates) => usersRepo.updateUser(userId, updates);

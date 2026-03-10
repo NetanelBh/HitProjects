@@ -1,0 +1,14 @@
+import StudentsModel from "../models/studentsModel.js";
+
+export const createStudent = (firstName, lastName, phone, studentId) => {
+	const newStudent = new StudentsModel({ firstName, lastName, phone, studentId });
+	return newStudent.save();
+};
+
+export const update = (studentId, studentData) => {
+	return StudentsModel.findByIdAndUpdate({ _id: studentId }, studentData, { new: true });
+};
+
+export const remove = (studentId) => {
+	return StudentsModel.findByIdAndDelete({ _id: studentId });
+};

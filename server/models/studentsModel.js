@@ -1,19 +1,26 @@
 import { Schema, model } from "mongoose";
 
-const studentSchema = new Schema({
-	firstName: {
-		type: String,
-		required: true,
+const studentSchema = new Schema(
+	{
+		firstName: {
+			type: String,
+			required: true,
+		},
+		lastName: {
+			type: String,
+			required: true,
+		},
+		phone: {
+			type: String,
+			required: true,
+		},
+		studentId: {
+			type: String,
+			required: true,
+		},
 	},
-	lastName: {
-		type: String,
-		required: true,
-	},
-	phone: {
-		type: String,
-		required: true,
-	},
-}, { versionKey: false });
+	{ versionKey: false },
+);
 
 const Student = model("Student", studentSchema);
 

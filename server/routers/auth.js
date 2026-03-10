@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import sendEmail from "../utils/sendGridConfig.js";
+import sendEmail from "../utils/sendEmailConfig.js";
 
 import {getUserByEmail, createUser, updateUser} from "../services/usersServices.js";
 
@@ -86,7 +86,7 @@ router.post("/forgot-password", async (req, res) => {
 			`
 		);
 
-		res.send({ status: true, data: "מייל לאיפוס סיסמא נשלח בהצלחה" });
+		res.send({ status: true, data: email + " :מייל לאיפוס סיסמא נשלח בהצלחה לכתובת" });
 	} catch (error) {
 		res.send({ status: false, data: error.message });
 	}

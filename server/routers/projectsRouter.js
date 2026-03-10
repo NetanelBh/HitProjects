@@ -1,5 +1,84 @@
-import express from 'express';
+import express from "express";
+
+import * as projectsServices from "../services/projectsServices.js";
 
 const router = express.Router();
+
+// Entry point: http://localhost:3000/projects
+
+router.get("/", async (req, res) => {
+	try {
+		const projects = await projectsServices.getProjectsByLecturerId(req.user.userId);
+		if (projects.length === 0) {
+			return res.send({ status: false, data: "No projects found" });
+		}
+
+		res.send({ status: true, data: projects });
+	} catch (error) {
+		res.send({ status: false, data: error.message });
+	}
+});
+
+router.post("/create", async (req, res) => {
+	try {
+		const { name, hebrewYear, semesters } = req.body;
+		const lecturer = req.user.userId;
+
+		const project = await projectsServices.createProject(name, hebrewYear, semesters, lecturer);
+		if (!project) {
+			return res.send({ status: false, data: "Project creation failed" });
+		}
+
+		res.send({ status: true, data: project });
+	} catch (error) {
+		res.send({ status: false, data: error.message });
+	}
+});
+
+router.patch("/update/:projectId", async (req, res) => {
+	try {
+		const { projectId } = req.params;
+
+		const project = await projectsServices.update(projectId, req.body);
+		if (!project) {
+			return res.send({ status: false, data: "Project update failed" });
+		}
+
+		res.send({ status: true, data: project });
+	} catch (error) {
+		res.send({ status: false, data: error.message });
+	}
+});
+
+router.patch("/projects/:id/add-student", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { studentId } = req.body;
+
+        const project = await projectsServices.addStudent(id, studentId);
+        if (!project) {
+            return res.send({ status: false, data: "Project update failed" });
+        }
+
+        res.send({ status: true, data: project });
+    } catch (error) {
+        res.send({ status: false, data: error.message });
+    }
+});
+
+router.delete("/delete/:projectId", async (req, res) => {
+	try {
+		const { projectId } = req.params;
+
+		const deletedProject = await projectsServices.remove(projectId);
+		if (!deletedProject) {
+			return res.send({ status: false, data: "Project deletion failed" });
+		}
+
+		res.send({ status: true, data: deletedProject });
+	} catch (error) {
+		res.send({ status: false, data: error.message });
+	}
+});
 
 export default router;
