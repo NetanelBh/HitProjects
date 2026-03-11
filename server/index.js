@@ -25,7 +25,7 @@ app.use(
 mongoConnection();
 
 app.use("/auth", authRoute);
-app.use("/users", /*authenticationMiddleware,*/ usersRoute);
+app.use("/users", authenticationMiddleware, usersRoute);
 app.use("/students", authenticationMiddleware, studentRoute);
 app.use("/projects", authenticationMiddleware, projectRoute);
 
