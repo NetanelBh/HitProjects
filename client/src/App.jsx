@@ -1,11 +1,9 @@
 import "./App.css";
 
+import AppRouter from "./router/AppRouter.jsx";
+
 function App() {
-	return (
-		<>
-			<div className="text-center text-2xl">Welcome to the MERN Stack Application!</div>
-		</>
-	);
+	return <AppRouter />;
 }
 
 export default App;
