@@ -1,16 +1,65 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+
+import useApi from "../../hooks/useHttpRequest";
 
 const Login = () => {
-	const [showPassword, setShowPassword] = useState(false);
+	const { isLoading, data, error, post } = useApi();
 
-  const loginHandler = (e) => {  
-    e.preventDefault();
-  };
+	const navigate = useNavigate();
+
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [showPassword, setShowPassword] = useState(false);
+	const [isVerifiedEmail, setIsVerifiedEmail] = useState(true);
+	const [isVerifiedPassword, setIsVerifiedPassword] = useState(true);
+
+	// Clear the session storage only once when enter to login page(aviod case re-rendering and remove the real token)
+	useEffect(() => {
+		sessionStorage.clear();
+	}, []);
+
+	const onChangeHandler = (type, value) => {
+		if (type === "email") {
+			setEmail(value);
+			setIsVerifiedEmail(true);
+		} else if (type === "password") {
+			setPassword(value);
+			setIsVerifiedPassword(true);
+		}
+	};
+
+	const loginHandler = async (e) => {
+		e.preventDefault();
+
+		try {
+			const response = await post("/auth/login", {
+				email,
+				password,
+			});
+
+			if (response.data === "אימייל לא תקין") {
+				setIsVerifiedEmail(false);
+				return;
+			}
+
+			if (response.data === "סיסמה שגויה") {
+				setIsVerifiedPassword(false);
+				return;
+			}
+
+			sessionStorage.setItem("token", response.data.token);
+			setEmail("");
+			setPassword("");
+			navigate("/dashboard");
+		} catch (error) {
+			console.log("Login error:", error);
+		}
+	};
 
 	return (
 		<div dir="rtl" className="min-h-screen flex flex-col items-center justify-center p-4">
-			<div className="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 [box-shadow:0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md">
+			<div className="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 bg-[#F9F8F6] [box-shadow:0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md">
 				<div className="md:max-w-md w-full px-4 py-4">
 					<form onSubmit={loginHandler}>
 						<h1 className=" mb-12 text-slate-900 text-3xl font-bold text-center">כניסה</h1>
@@ -52,8 +101,11 @@ const Login = () => {
 									id="email"
 									name="email"
 									type="text"
+									value={email}
+									onFocus={() => setIsVerifiedEmail(true)}
+									onChange={(e) => onChangeHandler("email", e.target.value)}
 									required
-									className="w-full text-slate-900 text-sm border-b border-slate-300 focus:border-blue-600 pr-2 pl-8 py-2 outline-none"
+									className={`w-full text-slate-900 text-sm focus:border-blue-600 pr-2 pl-8 py-2 outline-none ${!isVerifiedEmail ? "border-2 border-red-500" : "border-b border-slate-300"}`}
 									placeholder="הכנס כתובת מייל"
 								/>
 							</div>
@@ -80,9 +132,12 @@ const Login = () => {
 								<input
 									id="password"
 									name="password"
+									value={password}
 									type={showPassword ? "text" : "password"}
+									onFocus={() => setIsVerifiedPassword(true)}
+									onChange={(e) => onChangeHandler("password", e.target.value)}
 									required
-									className="w-full text-slate-900 text-sm border-b border-slate-300 focus:border-blue-600 pr-2 pl-8 py-2 outline-none"
+									className={`w-full text-slate-900 text-sm focus:border-blue-600 pr-2 pl-8 py-2 outline-none ${!isVerifiedPassword ? "border-2 border-red-500" : "border-b border-slate-300"}`}
 									placeholder="הכנס סיסמה"
 								/>
 							</div>
