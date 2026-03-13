@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import useApi from "../../hooks/useHttpRequest";
+import Loading from "../ui/Loading";
 
 const Login = () => {
-	const { isLoading, data, error, post } = useApi();
+	const { isLoading, post } = useApi();
 
 	const navigate = useNavigate();
 
@@ -59,6 +60,7 @@ const Login = () => {
 
 	return (
 		<div dir="rtl" className="min-h-screen flex flex-col items-center justify-center p-4">
+			{isLoading && <Loading />}
 			<div className="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 bg-[#F9F8F6] [box-shadow:0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md">
 				<div className="md:max-w-md w-full px-4 py-4">
 					<form onSubmit={loginHandler}>
@@ -162,7 +164,7 @@ const Login = () => {
 						</div>
 
 						<div className="flex mt-6 justify-center">
-							<p className="text-[13px] text-slate-600">
+							<span className="text-[13px] text-slate-600">
 								אין לך משתמש?{" "}
 								<NavLink
 									to="/register"
@@ -170,7 +172,7 @@ const Login = () => {
 								>
 									הירשם כאן
 								</NavLink>
-							</p>
+							</span>
 						</div>
 					</form>
 				</div>
