@@ -159,7 +159,7 @@ const Login = () => {
 								type="submit"
 								className="w-full shadow-xl py-2.5 px-4 text-sm font-medium tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none cursor-pointer"
 							>
-								Sign in
+								כניסה
 							</button>
 						</div>
 
