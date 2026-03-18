@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../components/pages/Login";
 import Register from "../components/pages/Register";
 import MainLayout from "../components/layout/MainLayout";
+import ResetPassword from "../components/pages/ResetPassword";
 import ForgotPassword from "../components/pages/ForgotPassdord";
 
 const AppRouter = () => {
@@ -11,6 +12,7 @@ const AppRouter = () => {
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/dashboard" element={<MainLayout />} > 
                     {/* Here will be the children */}

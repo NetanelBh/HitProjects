@@ -177,7 +177,7 @@ const Login = () => {
 					</form>
 				</div>
 
-				<div className="w-full h-full flex items-center bg-[#000842] rounded-xl p-8">
+				<div className="hidden md:flex w-full h-full items-center bg-[#000842] rounded-xl p-8">
 					<img
 						src="https://readymadeui.com/signin-image.webp"
 						className="w-full aspect-[12/12] object-contain"

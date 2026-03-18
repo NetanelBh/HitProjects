@@ -8,7 +8,7 @@ import useApi from "../../hooks/useHttpRequest";
 import { registerInputs } from "../utils.js/utils";
 
 const Register = () => {
-	const { isLoading, data, error, post } = useApi();
+	const { isLoading, post } = useApi();
 
 	const [openModal, setOpenModal] = useState(false);
 	const [navigateTo, setNavigateTo] = useState("");
@@ -74,7 +74,9 @@ const Register = () => {
 
 			{!isLoading && (
 				<>
-					{openModal && <ConfirmModal onClick={closeModalHandler} title="הרישום הצליח" message="המשתמש נוצר בהצלחה" />}
+					{openModal && (
+						<ConfirmModal onClick={closeModalHandler} title="הרישום הצליח" message="המשתמש נוצר בהצלחה" />
+					)}
 
 					{!openModal && (
 						<div
@@ -87,15 +89,13 @@ const Register = () => {
 							<form onSubmit={registerHandler} className="w-full flex flex-col gap-4">
 								{registerInputs.map((input, i) => (
 									<Input
-                    key={i}
+										key={i}
 										wrapDivStyle={input.wrapDivStyle}
 										label={input.label}
 										labelStyle={input.labelStyle}
 										inputStyle={input.inputStyle}
 										inputName={input.inputName}
 										type={input.type}
-										// TODO: REMOVE THE DEFAULT VALUES AFTER THE TESTS
-										defaultValue={input.defaultValue}
 										ref={input.ref}
 										isPasswordMatch={isPasswordMatch}
 										isUserExist={isUserExist}

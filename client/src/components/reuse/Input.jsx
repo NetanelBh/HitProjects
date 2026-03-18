@@ -9,7 +9,6 @@ const Input = forwardRef(
 			inputStyle,
 			inputName,
 			type,
-			defaultValue,
 			isPasswordMatch = undefined,
 			isUserExist = undefined,
 		},
@@ -44,8 +43,6 @@ const Input = forwardRef(
 							name={inputName}
 							type={!showPassword ? type : "text"}
 							className={`${inputStyle} ${!isPasswordMatch && inputName === "confirm" ? "border-2 border-red-500" : ""}`}
-							// TODO: REMOVE THE DEFAULT VALUES AFTER THE TESTS
-							defaultValue={defaultValue}
 							ref={ref}
 						/>
 					</div>
@@ -58,8 +55,6 @@ const Input = forwardRef(
 							name={inputName}
 							type={type}
 							className={inputStyle}
-							// TODO: REMOVE THE DEFAULT VALUES AFTER THE TESTS
-							defaultValue={defaultValue}
 							ref={ref}
 						/>
 
