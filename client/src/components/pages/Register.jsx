@@ -3,9 +3,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 import Input from "../reuse/Input";
 import Loading from "../ui/Loading";
-import ConfirmModal from "../ui/ConfirmModal";
+import SuccessModal from "../ui/SuccessModal";
 import useApi from "../../hooks/useHttpRequest";
-import { registerInputs } from "../utils.js/utils";
+import { inputs } from "../utils.js/utils";
 
 const Register = () => {
 	const { isLoading, post } = useApi();
@@ -24,11 +24,11 @@ const Register = () => {
 	const confirmRef = useRef();
 
 	// Add the refs to the inputs
-	registerInputs[0].ref = fnameRef;
-	registerInputs[1].ref = lnameRef;
-	registerInputs[2].ref = mailRef;
-	registerInputs[3].ref = passwordRef;
-	registerInputs[4].ref = confirmRef;
+	inputs[0].ref = fnameRef;
+	inputs[1].ref = lnameRef;
+	inputs[2].ref = mailRef;
+	inputs[3].ref = passwordRef;
+	inputs[4].ref = confirmRef;
 
 	const registerHandler = async (e) => {
 		e.preventDefault();
@@ -75,7 +75,7 @@ const Register = () => {
 			{!isLoading && (
 				<>
 					{openModal && (
-						<ConfirmModal onClick={closeModalHandler} title="הרישום הצליח" message="המשתמש נוצר בהצלחה" />
+						<SuccessModal onClick={closeModalHandler} title="הרישום הצליח" message="המשתמש נוצר בהצלחה" />
 					)}
 
 					{!openModal && (
@@ -87,7 +87,7 @@ const Register = () => {
 								הרשמה
 							</h1>
 							<form onSubmit={registerHandler} className="w-full flex flex-col gap-4">
-								{registerInputs.map((input, i) => (
+								{inputs.map((input, i) => (
 									<Input
 										key={i}
 										wrapDivStyle={input.wrapDivStyle}
@@ -104,7 +104,7 @@ const Register = () => {
 
 								<button
 									type="submit"
-									className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md shadow-sm"
+									className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm"
 								>
 									הירשם
 								</button>

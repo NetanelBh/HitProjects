@@ -19,12 +19,12 @@ const useApi = () => {
 
       if(!response.data.status) {
         setError(true);
-        setData(response.data);
-        return response.data;
+        setData(response.data.data);
+        return response.data.data;
       }
       
-      setData(response.data);
-      return response.data;
+      setData(response.data.data);
+      return response.data.data;
 
     } catch (err) {  
       setError(true);

@@ -44,6 +44,7 @@ const Input = forwardRef(
 							type={!showPassword ? type : "text"}
 							className={`${inputStyle} ${!isPasswordMatch && inputName === "confirm" ? "border-2 border-red-500" : ""}`}
 							ref={ref}
+							autoComplete="off"
 						/>
 					</div>
 				)}
@@ -56,6 +57,7 @@ const Input = forwardRef(
 							type={type}
 							className={inputStyle}
 							ref={ref}
+							autoComplete="off"
 						/>
 
 						{isUserExist && inputName === "mail" && (

@@ -1,4 +1,4 @@
-const ConfirmModal = ({ onClick, title, message }) => {
+const SuccessModal = ({ onClick, title, message }) => {
 	return (
 		<div className="fixed inset-0 flex justify-center items-center z-[1000] overflow-auto">
 			{/* Backdrop */}
@@ -34,4 +34,4 @@ const ConfirmModal = ({ onClick, title, message }) => {
 	);
 };
 
-export default ConfirmModal;
+export default SuccessModal;

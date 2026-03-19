@@ -12,7 +12,7 @@ const AppRouter = () => {
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/reset-password/:token" element={<ResetPassword />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/dashboard" element={<MainLayout />} > 
                     {/* Here will be the children */}

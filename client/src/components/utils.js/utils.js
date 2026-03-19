@@ -1,4 +1,4 @@
-export const registerInputs = [
+export const inputs = [
     {
         wrapDivStyle: "flex items-start flex-col justify-start",
         label: "שם פרטי",
