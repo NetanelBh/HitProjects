@@ -95,9 +95,10 @@ router.post("/forgot-password", async (req, res) => {
 router.post("/reset-password/:token", async (req, res) => {
 	const { token } = req.params;
 	const { newPassword } = req.body;
+	
 	try {
 		const decode = jwt.verify(token, process.env.JWT_SECRET);
-		const user = await getUserbyId(decode.id);
+		const user = await getUserById(decode.userId);
 		if (!user) {
 			res.send({ status: false, data: "שם משתמש לא קיים" });
 			return;
@@ -111,8 +112,8 @@ router.post("/reset-password/:token", async (req, res) => {
 		}
 
 		res.send({ status: true, data: "הסיסמה עודכנה בהצלחה" });
-	} catch {
-		res.send({ status: false, data: "בעיה בעדכון הסיסמה, אנא נסה שנית" });
+	} catch (error) {
+		res.send({ status: false, data: error.message });
 	}
 });
 

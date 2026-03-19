@@ -36,3 +36,5 @@ export const inputs = [
         type: "password",
     }
 ]
+
+export const checkMailValitidy = (mail) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);

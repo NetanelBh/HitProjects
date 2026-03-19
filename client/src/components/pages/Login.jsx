@@ -43,7 +43,7 @@ const Login = () => {
 				setIsVerifiedEmail(false);
 				return;
 			}
-
+			
 			if (response.data === "סיסמה שגויה") {
 				setIsVerifiedPassword(false);
 				return;

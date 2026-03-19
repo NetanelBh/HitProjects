@@ -1,13 +1,14 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Modal from "../ui/Modal";
 import Input from "../reuse/Input";
 import Loading from "../ui/Loading";
 import useApi from "../../hooks/useHttpRequest";
+import { checkMailValitidy } from "../utils.js/utils";
 
 const ForgotPassword = () => {
-	const emailRef = useRef();
+	const [formValues, setFormValues] = useState({ mail: "", isValidMail: true });
 	const navigate = useNavigate();
 	const [openModal, setOpenModal] = useState(false);
 
@@ -16,17 +17,25 @@ const ForgotPassword = () => {
 	const resetMailHandler = async (e) => {
 		e.preventDefault();
 
+		setFormValues({ ...formValues, isValidMail: true });
+
+		const validity = checkMailValitidy(formValues.mail);
+		if (!validity) {
+			setFormValues({ ...formValues, isValidMail: false });
+			return;
+		}
+
 		try {
 			const response = await post("/auth/forgot-password", {
-				email: emailRef.current.value,
+				email: formValues.mail,
 			});
+			
 			if (response.status) {
 				setOpenModal(true);
 				return;
 			}
 
-			// If the email send didn't succeed, redirect to login again
-			navigate("/");
+			setFormValues({ ...formValues, isValidMail: false });
 		} catch (err) {
 			navigate("/");
 			return;
@@ -35,6 +44,7 @@ const ForgotPassword = () => {
 
 	const closeModalHandler = () => {
 		setOpenModal(false);
+		navigate("/");
 	};
 
 	return (
@@ -42,7 +52,13 @@ const ForgotPassword = () => {
 			{isLoading && <Loading />}
 			{!isLoading && (
 				<>
-					{openModal && <Modal title="איפוס סיסמה" text="לינק לאיפוס סיסמה נשלח לתיבת הדואר שלך" onConfirm={closeModalHandler} />}
+					{openModal && (
+						<Modal
+							title="איפוס סיסמה"
+							text="לינק לאיפוס סיסמה נשלח לתיבת הדואר שלך"
+							onConfirm={closeModalHandler}
+						/>
+					)}
 
 					{!openModal && (
 						<section dir="rtl" className="bg-gray-50 dark:bg-gray-900">
@@ -58,9 +74,13 @@ const ForgotPassword = () => {
 											label="כתובת המייל שלך"
 											labelStyle="text-slate-900 text-sm font-medium mb-2 block"
 											inputStyle="bg-slate-100 w-full text-slate-900 text-sm px-4 py-3 rounded-md focus:bg-transparent outline-blue-500 transition-all"
-											inputName="email"
-											type="email"
-											ref={emailRef}
+											inputName="mail"
+											type="text"
+											value={formValues.mail}
+											onChange={(type, value) =>
+												setFormValues((prev) => ({ ...prev, [type]: value }))
+											}
+											isValidEmail={formValues.isValidMail}
 										/>
 
 										<button

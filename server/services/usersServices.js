@@ -4,6 +4,10 @@ export const getUserByEmail = (email) => {
     return usersRepo.getUserByEmail(email);
 };
 
+export const getUserById = (userId) => {
+    return usersRepo.getUserById(userId);
+};
+
 export const createUser = (fName, lName, email, password) => {
     return usersRepo.createUser(fName, lName, email, password);
 };

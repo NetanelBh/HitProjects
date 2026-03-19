@@ -15,16 +15,16 @@ const useApi = () => {
         url,
         method,
         data: body,
-      });    
-
+      });  
+      
       if(!response.data.status) {
         setError(true);
         setData(response.data.data);
-        return response.data.data;
+        return response.data;
       }
       
       setData(response.data.data);
-      return response.data.data;
+      return response.data;
 
     } catch (err) {  
       setError(true);
