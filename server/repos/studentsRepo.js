@@ -10,7 +10,7 @@ export const createStudent = (firstName, lastName, phone, studentId) => {
 };
 
 export const update = (studentId, studentData) => {
-	return StudentsModel.findByIdAndUpdate({ _id: studentId }, studentData, { new: true });
+	return StudentsModel.findByIdAndUpdate({ _id: studentId }, studentData, { returnDocument: "after" });
 };
 
 export const remove = (studentId) => {

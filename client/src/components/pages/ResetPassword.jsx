@@ -37,6 +37,8 @@ const ResetPassword = () => {
 		// Send the new password to server and replace the old one
 		try {
 			const resp = await post(`/auth/reset-password/${token}`, { newPassword: formValues.password });
+      console.log(resp);
+      
       if(resp.status) {
         setOpenModal({regularModal: false, successModal: true});
       } else {
@@ -51,12 +53,11 @@ const ResetPassword = () => {
 		setOpenModal({regularModal: false, successModal: false});
 	};
 
-  // TODO: check the final step when the user enter new password and send request to server
 	return (
 		<>
 			{isLoading && <Loading />}
 
-			{error && openModal.regularModal && <Modal title="איפוס סיסמה" text={data} onConfirm={closeModalHandler} />}
+			{error && openModal.regularModal && <Modal title="איפוס סיסמה" text={data !== 'jwt expired' ? data : "פג תוקף הלינק, לחץ שוב על 'שכחתי סיסמא'"} onConfirm={closeModalHandler} />}
 
 			<>
 				{openModal.successModal && !error && (

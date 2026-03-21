@@ -18,20 +18,22 @@ const Login = () => {
 	// Clear the session storage only once when enter to login page(aviod case re-rendering and remove the real token)
 	useEffect(() => {
 		sessionStorage.clear();
+		localStorage.clear();
 	}, []);
 
 	const onChangeHandler = (type, value) => {
 		if (type === "email") {
 			setEmail(value);
-			setIsVerifiedEmail(true);
 		} else if (type === "password") {
 			setPassword(value);
-			setIsVerifiedPassword(true);
 		}
 	};
 
 	const loginHandler = async (e) => {
 		e.preventDefault();
+
+		setIsVerifiedEmail(true);
+		setIsVerifiedPassword(true);
 
 		try {
 			const response = await post("/auth/login", {
@@ -49,7 +51,12 @@ const Login = () => {
 				return;
 			}
 
+			// Store the token in the session storage
 			sessionStorage.setItem("token", response.data.token);
+			// Remove the token from the user object that will be stored in local storage
+			const logedUser = {...response.data};
+			delete logedUser.token;
+			localStorage.setItem("user", JSON.stringify(logedUser));
 			setEmail("");
 			setPassword("");
 			navigate("/dashboard");
@@ -61,6 +68,7 @@ const Login = () => {
 	return (
 		<div dir="rtl" className="min-h-screen flex flex-col items-center justify-center p-4">
 			{isLoading && <Loading />}
+
 			<div className="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 bg-[#F9F8F6] [box-shadow:0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md">
 				<div className="md:max-w-md w-full px-4 py-4">
 					<form onSubmit={loginHandler}>
@@ -104,10 +112,9 @@ const Login = () => {
 									name="email"
 									type="text"
 									value={email}
-									onFocus={() => setIsVerifiedEmail(true)}
 									onChange={(e) => onChangeHandler("email", e.target.value)}
 									required
-									className={`w-full text-slate-900 text-sm focus:border-blue-600 pr-2 pl-8 py-2 outline-none ${!isVerifiedEmail ? "border-2 border-red-500" : "border-b border-slate-300"}`}
+									className={`w-full text-slate-900 text-sm focus:border-blue-600 pr-2 pl-8 py-2 outline-none ${!isVerifiedEmail ? "border-2 bg-red-400" : "border-b border-slate-300"}`}
 									placeholder="הכנס כתובת מייל"
 								/>
 							</div>
@@ -136,10 +143,9 @@ const Login = () => {
 									name="password"
 									value={password}
 									type={showPassword ? "text" : "password"}
-									onFocus={() => setIsVerifiedPassword(true)}
 									onChange={(e) => onChangeHandler("password", e.target.value)}
 									required
-									className={`w-full text-slate-900 text-sm focus:border-blue-600 pr-2 pl-8 py-2 outline-none ${!isVerifiedPassword ? "border-2 border-red-500" : "border-b border-slate-300"}`}
+									className={`w-full text-slate-900 text-sm focus:border-blue-600 pr-2 pl-8 py-2 outline-none ${!isVerifiedPassword ? "border-2 bg-red-400" : "border-b border-slate-300"}`}
 									placeholder="הכנס סיסמה"
 								/>
 							</div>

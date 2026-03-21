@@ -3,7 +3,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import sendEmail from "../utils/sendEmailConfig.js";
 
-import {getUserByEmail, createUser, updateUser} from "../services/usersServices.js";
+import {getUserByEmail, getUserById, createUser, updateUser} from "../services/usersServices.js";
 
 const router = express.Router();
 

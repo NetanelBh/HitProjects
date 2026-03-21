@@ -12,7 +12,7 @@ export const create = (name, hebrewYear, semesters, lecturer) => {
 
 export const update = (projectId, newData) => {
     // update only the given properties, if there are properties that not appear in the newData, they remain unchanged
-    return projectsModel.findByIdAndUpdate(projectId, newData, { new: true });
+    return projectsModel.findByIdAndUpdate(projectId, newData, { returnDocument: "after" });
 };
 
 export const remove = (projectId) => {
@@ -23,7 +23,7 @@ export const addStudent = (projectId, studentId) => {
     return projectsModel.findByIdAndUpdate(
         projectId,
         { $addToSet: { students: studentId } },
-        { new: true },
+        { returnDocument: "after" },
     );
 };
 
@@ -31,6 +31,6 @@ export const removeStudent = (projectId, studentId) => {
     return projectsModel.findByIdAndUpdate(
         projectId,
         { $pull: { students: studentId } },
-        { new: true },
+        { returnDocument: "after" },
     );
 };
