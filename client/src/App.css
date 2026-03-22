@@ -83,3 +83,51 @@
 			-122.9px -16px;
 	}
 }
+
+.background_move {
+  background-image: url('/images/background.jpg');
+  opacity: 0.6;	
+  background-repeat: repeat-x;
+  background-size: 100% auto;
+  background-position: center 0; /* start from center */
+  animation: moveBg ease-in-out infinite alternate;
+}
+
+/* Desktop ≥1024px */
+@media (min-width: 1024px) {
+  .background_move {
+    background-size: 100% auto;
+    animation-duration: 60s;
+  }
+  @keyframes moveBg {
+    0%   { background-position: center 0; }
+    33%  { background-position: calc(50% + 200px) 0; }  /* move right */
+    100%  { background-position: calc(50% - 200px) 0; }  /* move left */
+  }
+}
+
+/* Tablet 640px–1023px */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .background_move {
+    background-size: 160% auto; /* scale image */
+    animation-duration: 36s;    /* scaled speed */
+  }
+  @keyframes moveBg {
+    0%   { background-position: center 0; }
+    33%  { background-position: calc(50% + 120px) 0; }
+    100%  { background-position: calc(50% - 120px) 0; }
+  }
+}
+
+/* Mobile <640px */
+@media (max-width: 639px) {
+  .background_move {
+    background-size: 220% auto;
+    animation-duration: 24s;
+  }
+  @keyframes moveBg {
+    0%   { background-position: center 0; }
+    33%  { background-position: calc(50% + 60px) 0; }
+    100%  { background-position: calc(50% - 60px) 0; }
+  }
+}

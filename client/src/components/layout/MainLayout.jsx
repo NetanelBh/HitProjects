@@ -6,7 +6,9 @@ const MainLayout = () => {
 	return (
 		<>
 			<Header />
-			<main>
+			<main className="relative w-full min-h-screen overflow-hidden">
+				<div className="background_move absolute top-0 left-0 w-full h-full" />
+
 				<Outlet />
 			</main>
 		</>
