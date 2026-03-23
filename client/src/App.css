@@ -86,7 +86,7 @@
 
 .background_move {
   background-image: url('/images/background.jpg');
-  opacity: 0.6;	
+  opacity: 0.55;	
   background-repeat: repeat-x;
   background-size: 100% auto;
   background-position: center 0; /* start from center */

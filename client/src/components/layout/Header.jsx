@@ -7,26 +7,28 @@ import {
 	MenuItem,
 	MenuItems,
 } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
+// Current value determine if the current page is active to make the background
 const navigation = [
-	{ name: "Dashboard", href: "#", current: true },
+	{ name: "הפרוייקטים שלי", href: "#", current: true },
 	{ name: "Team", href: "#", current: false },
-	{ name: "Projects", href: "#", current: false },
-	{ name: "Calendar", href: "#", current: false },
+	{ name: "Projects", href: "#", current: false }
 ];
 
-function classNames(...classes) {
+const classNames = (...classes) => {
 	return classes.filter(Boolean).join(" ");
 }
 
-// TODO: EDIT THE HEADER - ONLY THE SYMBOL AND THE PROFILE BUTTON TO EDIT THE USER
+// TODO: CHANGE THE PROFILE BUTTON TO BE CHANGED ONLY WHEN OPEN THE MENU(ALSO CHANGE THE DIV TO BUTTON)
 const Header = () => {
+	const user = JSON.parse(localStorage.getItem("user"));
+
 	return (
-		<Disclosure as="nav" className="sticky top-0 z-50 bg-gray-800 border-b border-white">
+		<Disclosure dir="rtl" as="nav" className="sticky top-0 z-50 bg-gray-800/90 border-b border-white">
 			<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 				<div className="relative flex h-16 items-center justify-between">
-					<div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+					<div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
 						{/* Mobile menu button*/}
 						<DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
 							<span className="absolute -inset-0.5" />
@@ -34,6 +36,7 @@ const Header = () => {
 							<Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
 							<XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
 						</DisclosureButton>
+
 					</div>
 					<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 						<div className="flex shrink-0 items-center">
@@ -43,7 +46,8 @@ const Header = () => {
 								className="h-8 w-auto"
 							/>
 						</div>
-						<div className="hidden sm:ml-6 sm:block">
+
+						<div className="hidden sm:mr-6 sm:block">
 							<div className="flex space-x-4">
 								{navigation.map((item) => (
 									<a
@@ -52,7 +56,7 @@ const Header = () => {
 										aria-current={item.current ? "page" : undefined}
 										className={classNames(
 											item.current
-												? "bg-gray-900 text-white"
+												? "bg-yellow-100 text-gray-900"
 												: "text-gray-300 hover:bg-white/5 hover:text-white",
 											"rounded-md px-3 py-2 text-sm font-medium",
 										)}
@@ -63,22 +67,13 @@ const Header = () => {
 							</div>
 						</div>
 					</div>
-					<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-						<button
-							type="button"
-							className="relative rounded-full p-1 text-gray-400 focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
-						>
-							<span className="absolute -inset-1.5" />
-							<span className="sr-only">View notifications</span>
-							<BellIcon aria-hidden="true" className="size-6" />
-						</button>
-
+          
+					<div className="absolute inset-y-0 right-0 flex items-center pl-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 						{/* Profile dropdown */}
 						<Menu as="div" className="relative ml-3">
-							<MenuButton className="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-								<span className="absolute -inset-1.5" />
+							<MenuButton className="relative flex rounded-full justify-center items-center size-10 bg-gray-800 text-white text-lg md:text-xl flex justify-center items-center outline outline-yellow-100 focus:outline-none ring-2 focus:ring-indigo-500">
 								<span className="sr-only">Open user menu</span>
-								<div className="size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/50">{}</div>
+								{`${user.firstName[0]}${user.lastName[0]}`}
 							</MenuButton>
 
 							<MenuItems
