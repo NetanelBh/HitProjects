@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import Modal from "../ui/Modal";
-import Input from "../reuse/Input";
-import Loading from "../ui/Loading";
-import { inputs } from "../utils.js/utils";
-import SuccessModal from "../ui/SuccessModal";
-import useApi from "../../hooks/useHttpRequest";
+import Modal from "../../ui/Modal";
+import Input from "../../reuse/Input";
+import Loading from "../../ui/Loading";
+import { inputs } from "../../utils.js/utils";
+import SuccessModal from "../../ui/SuccessModal";
+import useApi from "../../../hooks/useHttpRequest";
 
 const ResetPassword = () => {
 	const { token } = useParams();

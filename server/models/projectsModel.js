@@ -11,8 +11,9 @@ const projectSchema = new Schema(
 			required: true,
 		},
 		semesters: {
-			type: String,
-			required: true,
+			A: { type: Boolean, required: true },
+			B: { type: Boolean, required: true },
+			C: { type: Boolean, required: true },
 		},
 		lecturer: {
 			type: Schema.Types.ObjectId,

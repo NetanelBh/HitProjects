@@ -1,28 +1,40 @@
-import {
-	Disclosure,
-	DisclosureButton,
-	DisclosurePanel,
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuItems,
-} from "@headlessui/react";
+import { NavLink, useLocation } from "react-router-dom";
+
+import MenuItemComp from "./MenuItemComp";
+
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 // Current value determine if the current page is active to make the background
 const navigation = [
-	{ name: "הפרוייקטים שלי", href: "#", current: true },
-	{ name: "Team", href: "#", current: false },
-	{ name: "Projects", href: "#", current: false }
+	{ name: "הפרוייקטים שלי", to: "/dashboard/my-projects" },
+	{ name: "Team", to: "/dashboard/team" },
 ];
+
+const menuItemsData = {
+	className: "block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden",
+	data: [
+		{
+			name: "עריכה",
+			to: "#",
+		},
+		{
+			name: "התנתקות",
+			to: "#",
+		},
+	],
+};
 
 const classNames = (...classes) => {
 	return classes.filter(Boolean).join(" ");
-}
+};
 
-// TODO: CHANGE THE PROFILE BUTTON TO BE CHANGED ONLY WHEN OPEN THE MENU(ALSO CHANGE THE DIV TO BUTTON)
 const Header = () => {
 	const user = JSON.parse(localStorage.getItem("user"));
+	const { pathname } = useLocation();
+
+	console.log(pathname);
+  // TODO: NEED TO COMPARE THE LAST PATH OF THE PATHNAME TO THE URL OF THE NAVLINK
 
 	return (
 		<Disclosure dir="rtl" as="nav" className="sticky top-0 z-50 bg-gray-800/90 border-b border-white">
@@ -36,8 +48,8 @@ const Header = () => {
 							<Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
 							<XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
 						</DisclosureButton>
-
 					</div>
+
 					<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 						<div className="flex shrink-0 items-center">
 							<img
@@ -50,61 +62,46 @@ const Header = () => {
 						<div className="hidden sm:mr-6 sm:block">
 							<div className="flex space-x-4">
 								{navigation.map((item) => (
-									<a
+									<NavLink
 										key={item.name}
-										href={item.href}
-										aria-current={item.current ? "page" : undefined}
-										className={classNames(
-											item.current
-												? "bg-yellow-100 text-gray-900"
-												: "text-gray-300 hover:bg-white/5 hover:text-white",
-											"rounded-md px-3 py-2 text-sm font-medium",
-										)}
+										to={item.to}
+										aria-current={pathname.includes("my-projects") ? "page" : undefined}
+										className={`rounded-md px-3 py-2 text-sm font-medium ${pathname.includes("my-projects") ? "bg-yellow-100 text-gray-900" : "text-gray-300 hover:bg-white/5 hover:text-white"}`}
 									>
 										{item.name}
-									</a>
+									</NavLink>
 								))}
 							</div>
 						</div>
 					</div>
-          
+
 					<div className="absolute inset-y-0 right-0 flex items-center pl-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 						{/* Profile dropdown */}
 						<Menu as="div" className="relative ml-3">
-							<MenuButton className="relative flex rounded-full justify-center items-center size-10 bg-gray-800 text-white text-lg md:text-xl flex justify-center items-center outline outline-yellow-100 focus:outline-none ring-2 focus:ring-indigo-500">
-								<span className="sr-only">Open user menu</span>
-								{`${user.firstName[0]}${user.lastName[0]}`}
-							</MenuButton>
+							{({ open }) => (
+								<>
+									<MenuButton
+										className={`relative flex rounded-full justify-center items-center size-10 bg-gray-800 text-white text-lg md:text-xl flex justify-center items-center ${open ? "outline-none ring-2 ring-indigo-500" : "outline outline-yellow-100"}`}
+									>
+										<span className="sr-only">Open user menu</span>
+										{`${user.firstName[0]}${user.lastName[0]}`}
+									</MenuButton>
 
-							<MenuItems
-								transition
-								className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg outline outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-							>
-								<MenuItem>
-									<a
-										href="#"
-										className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+									<MenuItems
+										transition
+										className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg outline outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
 									>
-										Your profile
-									</a>
-								</MenuItem>
-								<MenuItem>
-									<a
-										href="#"
-										className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-									>
-										Settings
-									</a>
-								</MenuItem>
-								<MenuItem>
-									<a
-										href="#"
-										className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-									>
-										Sign out
-									</a>
-								</MenuItem>
-							</MenuItems>
+										{menuItemsData.data.map((item) => (
+											<MenuItemComp
+												key={item.name}
+												to={item.to}
+												className={menuItemsData.className}
+												name={item.name}
+											/>
+										))}
+									</MenuItems>
+								</>
+							)}
 						</Menu>
 					</div>
 				</div>
@@ -117,13 +114,8 @@ const Header = () => {
 							key={item.name}
 							as="a"
 							href={item.href}
-							aria-current={item.current ? "page" : undefined}
-							className={classNames(
-								item.current
-									? "bg-gray-900 text-white"
-									: "text-gray-300 hover:bg-white/5 hover:text-white",
-								"block rounded-md px-3 py-2 text-base font-medium",
-							)}
+							aria-current={pathname.includes("my-projects") ? "page" : undefined}
+							className={`${pathname.includes("my-projects") ? "text-gray-300 hover:bg-white/5 hover:text-white" : "bg-gray-900 text-white"} block rounded-md px-3 py-2 text-base font-medium`}
 						>
 							{item.name}
 						</DisclosureButton>
