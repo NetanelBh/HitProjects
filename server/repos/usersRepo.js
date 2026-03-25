@@ -14,4 +14,4 @@ export const createUser = (firstName, lastName, email, password) => {
 };
 
 export const updateUser = (userId, updates) =>
-	usersModel.findByIdAndUpdate({ _id: userId }, { $set: updates }, { returnDocument: "after", select: "-password" });
+	usersModel.findByIdAndUpdate({ _id: userId }, { $set: updates }, { returnDocument: "after"}).select("-password");

@@ -1,29 +1,10 @@
-import { NavLink, useLocation } from "react-router-dom";
-
-import MenuItemComp from "./MenuItemComp";
+import { NavLink } from "react-router-dom";
 
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-// Current value determine if the current page is active to make the background
-const navigation = [
-	{ name: "הפרוייקטים שלי", to: "/dashboard/my-projects" },
-	{ name: "Team", to: "/dashboard/team" },
-];
-
-const menuItemsData = {
-	className: "block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden",
-	data: [
-		{
-			name: "עריכה",
-			to: "#",
-		},
-		{
-			name: "התנתקות",
-			to: "#",
-		},
-	],
-};
+import MenuItemComp from "./MenuItemComp";
+import { navigation, menuItemsData } from "../utils.js/utils";
 
 const classNames = (...classes) => {
 	return classes.filter(Boolean).join(" ");
@@ -31,10 +12,6 @@ const classNames = (...classes) => {
 
 const Header = () => {
 	const user = JSON.parse(localStorage.getItem("user"));
-	const { pathname } = useLocation();
-
-	console.log(pathname);
-  // TODO: NEED TO COMPARE THE LAST PATH OF THE PATHNAME TO THE URL OF THE NAVLINK
 
 	return (
 		<Disclosure dir="rtl" as="nav" className="sticky top-0 z-50 bg-gray-800/90 border-b border-white">
@@ -65,8 +42,15 @@ const Header = () => {
 									<NavLink
 										key={item.name}
 										to={item.to}
-										aria-current={pathname.includes("my-projects") ? "page" : undefined}
-										className={`rounded-md px-3 py-2 text-sm font-medium ${pathname.includes("my-projects") ? "bg-yellow-100 text-gray-900" : "text-gray-300 hover:bg-white/5 hover:text-white"}`}
+										aria-current={({ isActive }) => (isActive ? "page" : undefined)}
+										className={({ isActive }) =>
+											classNames(
+												isActive
+													? "bg-yellow-100 text-gray-900"
+													: "text-gray-300 hover:bg-white/5 hover:text-white",
+												"rounded-md px-3 py-2 text-sm font-medium",
+											)
+										}
 									>
 										{item.name}
 									</NavLink>
@@ -84,7 +68,7 @@ const Header = () => {
 										className={`relative flex rounded-full justify-center items-center size-10 bg-gray-800 text-white text-lg md:text-xl flex justify-center items-center ${open ? "outline-none ring-2 ring-indigo-500" : "outline outline-yellow-100"}`}
 									>
 										<span className="sr-only">Open user menu</span>
-										{`${user.firstName[0]}${user.lastName[0]}`}
+										{`${user?.firstName[0] || ""}${user?.lastName[0] || ""}`}
 									</MenuButton>
 
 									<MenuItems
@@ -114,8 +98,15 @@ const Header = () => {
 							key={item.name}
 							as="a"
 							href={item.href}
-							aria-current={pathname.includes("my-projects") ? "page" : undefined}
-							className={`${pathname.includes("my-projects") ? "text-gray-300 hover:bg-white/5 hover:text-white" : "bg-gray-900 text-white"} block rounded-md px-3 py-2 text-base font-medium`}
+							aria-current={({ isActive }) => (isActive ? "page" : undefined)}
+							className={({ isActive }) =>
+								classNames(
+									isActive
+										? "text-gray-300 hover:bg-white/5 hover:text-white"
+										: "bg-gray-900 text-white",
+									"block rounded-md px-3 py-2 text-base font-medium",
+								)
+							}
 						>
 							{item.name}
 						</DisclosureButton>

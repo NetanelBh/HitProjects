@@ -40,6 +40,8 @@ const Login = () => {
 				email,
 				password,
 			});
+			console.log(response);
+			
 
 			if (response.data === "אימייל לא תקין") {
 				setIsVerifiedEmail(false);
@@ -59,7 +61,7 @@ const Login = () => {
 			localStorage.setItem("user", JSON.stringify(logedUser));
 			setEmail("");
 			setPassword("");
-			navigate("/dashboard/my-projects");
+			navigate("/dashboard/projects/my-projects");
 		} catch (error) {
 			console.log("Login error:", error);
 		}

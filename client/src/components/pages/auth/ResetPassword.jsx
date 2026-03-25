@@ -45,12 +45,15 @@ const ResetPassword = () => {
         setOpenModal({regularModal: true, successModal: false});
       }
 		} catch (error) {
+			setOpenModal({regularModal: true, successModal: false});
 			console.log(error.message);
 		}
 	};
 
 	const closeModalHandler = () => {
 		setOpenModal({regularModal: false, successModal: false});
+		setFormValues({ password: "", confirm: "" });
+		setIsPasswordMatch(true);
 	};
 
 	return (
