@@ -42,8 +42,7 @@ export const checkMailValitidy = (mail) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mai
 
 // Data for Header navbar component to crete the navigation routes
 export const navigation = [
-	{ name: "הפרוייקטים שלי", to: "/dashboard/projects/my-projects" },
-	{ name: "Team", to: "/dashboard" },
+	{ name: "הפרוייקטים שלי", to: "/dashboard/projects/my-projects" }
 ];
 
 // Data for Header component when create the profile button menu

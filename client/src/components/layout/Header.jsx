@@ -1,80 +1,60 @@
 import { NavLink } from "react-router-dom";
-
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItems } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-
+import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import MenuItemComp from "./MenuItemComp";
 import { navigation, menuItemsData } from "../utils.js/utils";
 
-const classNames = (...classes) => {
-	return classes.filter(Boolean).join(" ");
-};
+const classNames = (...classes) => classes.filter(Boolean).join(" ");
 
 const Header = () => {
 	const user = JSON.parse(localStorage.getItem("user"));
 
 	return (
-		<Disclosure dir="rtl" as="nav" className="sticky top-0 z-50 bg-gray-800/90 border-b border-white">
+		<nav dir="rtl" className="sticky top-0 z-50 bg-gray-800/90 border-b border-white">
 			<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-				<div className="relative flex h-16 items-center justify-between">
-					<div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
-						{/* Mobile menu button*/}
-						<DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
-							<span className="absolute -inset-0.5" />
-							<span className="sr-only">Open main menu</span>
-							<Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
-							<XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
-						</DisclosureButton>
+				<div className="flex h-16 items-center justify-between">
+					{/* Right: Logo */}
+					<div className="flex shrink-0 items-center pt-2">
+						<img
+							alt="Website logo"
+							src="/images/web_logo.png"
+							className="h-16 sm:w-16 block"
+						/>
 					</div>
 
-					<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-						<div className="flex shrink-0 items-center">
-							<img
-								alt="Your Company"
-								src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-								className="h-8 w-auto"
-							/>
-						</div>
-
-						<div className="hidden sm:mr-6 sm:block">
-							<div className="flex space-x-4">
-								{navigation.map((item) => (
-									<NavLink
-										key={item.name}
-										to={item.to}
-										aria-current={({ isActive }) => (isActive ? "page" : undefined)}
-										className={({ isActive }) =>
-											classNames(
-												isActive
-													? "bg-yellow-100 text-gray-900"
-													: "text-gray-300 hover:bg-white/5 hover:text-white",
-												"rounded-md px-3 py-2 text-sm font-medium",
-											)
-										}
-									>
-										{item.name}
-									</NavLink>
-								))}
-							</div>
-						</div>
+					{/* Center: Navigation */}
+					<div className="flex flex-1 justify-center space-x-4">
+						{navigation.map((item) => (
+							<NavLink
+								key={item.name}
+								to={item.to}
+								aria-current={({ isActive }) => (isActive ? "page" : undefined)}
+								className={({ isActive }) =>
+									classNames(
+										isActive
+											? "bg-yellow-100 text-gray-900"
+											: "text-gray-300 hover:bg-white/5 hover:text-white",
+										"rounded-md px-3 py-2 text-sm font-medium",
+									)
+								}
+							>
+								{item.name}
+							</NavLink>
+						))}
 					</div>
 
-					<div className="absolute inset-y-0 right-0 flex items-center pl-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-						{/* Profile dropdown */}
+					{/* Left: Profile Dropdown */}
+					<div className="flex items-center">
 						<Menu as="div" className="relative ml-3">
 							{({ open }) => (
 								<>
 									<MenuButton
-										className={`relative flex rounded-full justify-center items-center size-10 bg-gray-800 text-white text-lg md:text-xl flex justify-center items-center ${open ? "outline-none ring-2 ring-indigo-500" : "outline outline-yellow-100"}`}
+										className={`relative flex rounded-full justify-center items-center size-10 bg-gray-800 text-white text-lg md:text-xl ${open ? "outline-none ring-2 ring-cyan-400" : "outline ring-2 outline-yellow-100"}`}
 									>
 										<span className="sr-only">Open user menu</span>
 										{`${user?.firstName[0] || ""}${user?.lastName[0] || ""}`}
 									</MenuButton>
 
-									<MenuItems
-										transition
-										className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg outline outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-									>
+									<MenuItems className="absolute left-0 z-10 mt-2 w-48 origin-top-left rounded-md bg-white py-1 shadow-lg outline outline-black/5">
 										{menuItemsData.data.map((item) => (
 											<MenuItemComp
 												key={item.name}
@@ -90,30 +70,7 @@ const Header = () => {
 					</div>
 				</div>
 			</div>
-
-			<DisclosurePanel className="sm:hidden">
-				<div className="space-y-1 px-2 pt-2 pb-3">
-					{navigation.map((item) => (
-						<DisclosureButton
-							key={item.name}
-							as="a"
-							href={item.href}
-							aria-current={({ isActive }) => (isActive ? "page" : undefined)}
-							className={({ isActive }) =>
-								classNames(
-									isActive
-										? "text-gray-300 hover:bg-white/5 hover:text-white"
-										: "bg-gray-900 text-white",
-									"block rounded-md px-3 py-2 text-base font-medium",
-								)
-							}
-						>
-							{item.name}
-						</DisclosureButton>
-					))}
-				</div>
-			</DisclosurePanel>
-		</Disclosure>
+		</nav>
 	);
 };
 

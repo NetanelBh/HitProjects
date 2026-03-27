@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "../components/pages/auth/Login";
+import Table from "../components/pages/projects/Table";
 import Register from "../components/pages/auth/Register";
 import MainLayout from "../components/layout/MainLayout";
 import MyProjects from "../components/pages/projects/MyProjects";
