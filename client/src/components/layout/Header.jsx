@@ -22,7 +22,7 @@ const Header = () => {
 					</div>
 
 					{/* Center: Navigation */}
-					<div className="flex flex-1 justify-center space-x-4">
+					<div className="flex flex-1 justify-start space-x-4 mr-6">
 						{navigation.map((item) => (
 							<NavLink
 								key={item.name}

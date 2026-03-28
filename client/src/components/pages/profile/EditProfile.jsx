@@ -106,7 +106,7 @@ const EditProfile = () => {
 					dir="rtl"
 					className="max-w-lg w-full bg-white/80 dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center"
 				>
-					<h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">הרשמה</h1>
+					<h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">עדכון פרטים</h1>
 
 					<form onSubmit={updateHandler} className="w-full flex flex-col gap-4">
 						{filteredInputs.map((input) => (

@@ -39,9 +39,7 @@ const Login = () => {
 			const response = await post("/auth/login", {
 				email,
 				password,
-			});
-			console.log(response);
-			
+			});	
 
 			if (response.data === "אימייל לא תקין") {
 				setIsVerifiedEmail(false);
