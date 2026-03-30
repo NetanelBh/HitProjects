@@ -6,7 +6,7 @@ import Loading from "../../ui/Loading";
 import SuccessModal from "../../ui/SuccessModal";
 
 import useApi from "../../../hooks/useHttpRequest";
-import { inputs } from "../../utils.js/utils";
+import { inputs } from "../../utils/utils";
 
 const EditProfile = () => {
 	const user = JSON.parse(localStorage.getItem("user"));
@@ -101,7 +101,7 @@ const EditProfile = () => {
 				</div>
 			)}
 
-			<div className="relative z-10 min-h-screen flex items-center justify-center p-4">
+			<div className="relative z-10 flex justify-center mt-6 p-4">
 				<div
 					dir="rtl"
 					className="max-w-lg w-full bg-white/80 dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center"

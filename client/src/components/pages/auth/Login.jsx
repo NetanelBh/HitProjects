@@ -69,7 +69,7 @@ const Login = () => {
 		<main className="relative w-full min-h-screen overflow-hidden">
 			<div className="background_move absolute top-0 left-0 w-full h-full" />
 			
-			<div dir="rtl" className="relative z-10 min-h-screen flex flex-col items-center justify-center p-4">
+			<div dir="rtl" className="relative z-10 min-h-screen flex flex-col items-center mt-12 p-4">
 				{isLoading && <Loading />}
 
 				<div className="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 bg-white/80 shadow-lg rounded-md">

@@ -5,7 +5,7 @@ import Modal from "../../ui/Modal";
 import Input from "../../reuse/Input";
 import Loading from "../../ui/Loading";
 import useApi from "../../../hooks/useHttpRequest";
-import { checkMailValitidy } from "../../utils.js/utils";
+import { checkMailValitidy } from "../../utils/utils";
 
 const ForgotPassword = () => {
 	const [formValues, setFormValues] = useState({ mail: "", isValidMail: true });

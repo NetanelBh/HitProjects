@@ -1,0 +1,115 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import Modal from "../../ui/Modal";
+import Input from "../../reuse/Input";
+import Loading from "../../ui/Loading";
+import { courseInputs } from "../../utils/utils";
+import SuccessModal from "../../ui/SuccessModal";
+import useApi from "../../../hooks/useHttpRequest";
+
+const AddProject = () => {
+	const [navigateTo, setNavigateTo] = useState("");
+    const [isCourseExist, setIsCourseExist] = useState(false);
+    const [openModal, setOpenModal] = useState({ regularModal: false, successModal: false });
+	const [formValues, setFormValues] = useState({
+		name: "",
+		semesters: "",
+		year: "",
+	});
+
+	const navigate = useNavigate();
+	const { isLoading, post, error, data } = useApi();
+
+	const addCourseHandler = async (e) => {
+		e.preventDefault();
+		setIsCourseExist(false);
+
+		const course = {
+			name: formValues.name,
+			year: formValues.year,
+			semesters: formValues.semesters,
+		};
+
+		try {
+			const returnedCourse = await post("/projects/create", course);
+
+			if (!returnedCourse.status) {
+				setIsCourseExist(true);
+				return;
+			}
+
+			setOpenModal(true);
+			setNavigateTo("/courses"); // navigate to courses list after success
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+
+	const closeModalHandler = (type) => {
+		setOpenModal({ [type]: false });
+        // Only when add course is successful, reset the form values and navigate to courses list
+        if (type === "successModal") {
+            setFormValues({ courseName: "", semesters: "", year: "" });
+            setIsCourseExist(false);
+        }
+
+		navigate(navigateTo);
+	};
+
+	return (
+		<main className="relative w-full min-h-screen overflow-hidden">
+			{/* 🔵 Background */}
+			<div className="background_move absolute top-0 left-0 w-full h-full z-0" />
+
+			{/*🔵 Loader */}
+			{isLoading && (
+				<div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+					<Loading />
+				</div>
+			)}
+
+			{/* 🔵 Modal */}
+			{openModal && (
+				<div className="relative z-40">
+					<SuccessModal onClick={closeModalHandler} title="הוספת קורס" message="הקורס נוסף בהצלחה" />
+				</div>
+			)}
+
+			{/* 🔵 Form */}
+			{!openModal && (
+				<div className="relative z-10 flex mt-12 justify-center p-4">
+					<div
+						dir="rtl"
+						className="max-w-lg w-full bg-white/80 dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center"
+					>
+						<h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
+							הוספת קורס
+						</h1>
+
+						<form onSubmit={addCourseHandler} className="w-full flex flex-col gap-4">
+							{courseInputs.map((input) => (
+								<Input
+									key={input.inputName}
+									{...input}
+									value={formValues[input.inputName]}
+									onChange={(type, value) => setFormValues((prev) => ({ ...prev, [type]: value }))}
+									isUserExist={isCourseExist} // reuse error for existing course
+								/>
+							))}
+
+							<button
+								type="submit"
+								className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm"
+							>
+								הוסף קורס
+							</button>
+						</form>
+					</div>
+				</div>
+			)}
+		</main>
+	);
+};
+
+export default AddProject;

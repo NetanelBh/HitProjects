@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import { navigation, menuItemsData } from "../utils.js/utils";
+import { navigation, menuItemsData } from "../utils/utils";
 
 const classNames = (...classes) => classes.filter(Boolean).join(" ");
 

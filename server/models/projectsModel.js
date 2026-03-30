@@ -6,14 +6,13 @@ const projectSchema = new Schema(
 			type: String,
 			required: true,
 		},
-		hebrewYear: {
+		year: {
 			type: String,
 			required: true,
 		},
 		semesters: {
-			A: { type: Boolean, required: true },
-			B: { type: Boolean, required: true },
-			C: { type: Boolean, required: true },
+			type: String,
+			required: true,
 		},
 		lecturer: {
 			type: Schema.Types.ObjectId,

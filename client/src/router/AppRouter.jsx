@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../components/pages/auth/Login";
 import Register from "../components/pages/auth/Register";
 import MainLayout from "../components/layout/MainLayout";
+import AddProject from "../components/pages/projects/AddProject";
 import CoursesPage from "../components/pages/projects/MyProjects";
 import EditProfile from "../components/pages/profile/EditProfile";
 import ResetPassword from "../components/pages/auth/ResetPassword";
@@ -19,6 +20,7 @@ const AppRouter = () => {
 				<Route path="/dashboard" element={<MainLayout />}>
 					<Route path="projects/:type" element={<CoursesPage />} />
 					<Route path="profile/edit-profile" element={<EditProfile />} />
+					<Route path="projects/add-project" element={<AddProject />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

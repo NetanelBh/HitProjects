@@ -12,8 +12,9 @@ const Input = ({
 	isPasswordMatch = undefined,
 	isUserExist = undefined,
 	isValidEmail = undefined,
+	placeholder = undefined,
 }) => {
-	const [showPassword, setShowPassword] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);	
 
 	return (
 		<div className={wrapDivStyle}>
@@ -59,6 +60,7 @@ const Input = ({
 						value={value || ""}
 						onChange={(e) => onChange(inputName, e.target.value)}
 						autoComplete="off"
+						placeholder={placeholder}
 					/>
 
 					{((isUserExist || !isValidEmail ) && inputName === "mail") && (

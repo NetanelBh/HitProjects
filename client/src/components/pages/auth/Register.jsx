@@ -5,7 +5,7 @@ import Input from "../../reuse/Input";
 import Loading from "../../ui/Loading";
 import SuccessModal from "../../ui/SuccessModal";
 import useApi from "../../../hooks/useHttpRequest";
-import { inputs, checkMailValitidy } from "../../utils.js/utils";
+import { inputs, checkMailValitidy } from "../../utils/utils";
 
 const Register = () => {
 	const { isLoading, post } = useApi();
@@ -92,7 +92,7 @@ const Register = () => {
 
 			{/* 🔵 Form */}
 			{!openModal && (
-				<div className="relative z-10 min-h-screen flex items-center justify-center p-4">
+				<div className="relative z-10 flex mt-6 justify-center p-4">
 					<div
 						dir="rtl"
 						className="max-w-lg w-full bg-white/80 dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center"
