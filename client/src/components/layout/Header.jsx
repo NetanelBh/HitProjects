@@ -36,7 +36,7 @@ const Header = () => {
 					{/* Create burger menu when mobile */}
 					<div className="sm:hidden relative flex justify-center">
 						{/* Burger button */}
-						<button onClick={burgerClickHandler} className="text-white text-2xl p-2">
+						<button onClick={burgerClickHandler} className="text-white text-2xl p-2 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
 							☰
 						</button>
 
