@@ -17,7 +17,7 @@ const AppRouter = () => {
 				<Route path="/reset-password/:token" element={<ResetPassword />} />
 				<Route path="/forgot-password" element={<ForgotPassword />} />
 				<Route path="/dashboard" element={<MainLayout />}>
-					<Route path="projects/my-projects" element={<CoursesPage />} />
+					<Route path="projects/:type" element={<CoursesPage />} />
 					<Route path="profile/edit-profile" element={<EditProfile />} />
 				</Route>
 			</Routes>

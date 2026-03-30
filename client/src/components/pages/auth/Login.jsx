@@ -59,7 +59,7 @@ const Login = () => {
 			localStorage.setItem("user", JSON.stringify(logedUser));
 			setEmail("");
 			setPassword("");
-			navigate("/dashboard/projects/my-projects");
+			navigate("/dashboard/projects/active");
 		} catch (error) {
 			console.log("Login error:", error);
 		}

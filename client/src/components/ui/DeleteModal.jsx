@@ -37,11 +37,10 @@ const DeleteModal = () => {
 							</svg>
 							<div className="mt-6">
 								<h4 className="text-slate-900 text-lg font-semibold">
-									Are you sure you want to delete it?
+									מחיקת קורס
 								</h4>
 								<p className="text-sm text-slate-600 mt-3">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor auctor arcu, at
-									fermentum dui.
+									האם אתה בטוח שברצונך למחוק?
 								</p>
 							</div>
 						</div>
