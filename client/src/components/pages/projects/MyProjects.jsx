@@ -17,7 +17,7 @@ const CoursesPage = () => {
 	const [courses, setCourses] = useState(initialCourses);
 	const [search, setSearch] = useState("");
 
-	const handleDelete = (id) => {
+	const deleteProjectHandler = (id) => {
 		setCourses(courses.filter((course) => course.id !== id));
 	};
 
@@ -53,7 +53,7 @@ const CoursesPage = () => {
 				{filteredCourses.length === 0 && type === "completed" && <h1 className="text-2xl font-bold text-black mt-4 text-center">אין קורסים להצגה</h1>}
 				
 				{filteredCourses.map((course) => (
-					<CourseCard key={course.id} course={course} onDelete={handleDelete} />
+					<CourseCard key={course.id} course={course} onDelete={deleteProjectHandler} />
 				))}
 			</div>
 		</div>
