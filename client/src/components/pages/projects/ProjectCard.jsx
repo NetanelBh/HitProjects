@@ -19,11 +19,11 @@ const calculateProgress = (startDate, endDate) => {
 	return Math.round((passed / total) * 100);
 };
 
-const CourseCard = ({ course, onDelete }) => {
-	const progress = calculateProgress(course.startDate, course.endDate);
+const ProjectCard = ({ project, onDelete }) => {
+	const progress = calculateProgress(project.startDate, project.endDate);
 	// Extract the year from the start date
-	const startYear = new Date(course.startDate).getFullYear();
-	const endYear = new Date(course.endDate).getFullYear();
+	const startYear = new Date(project.startDate).getFullYear();
+	const endYear = new Date(project.endDate).getFullYear();
 	const yearDisplay = startYear === endYear ? startYear : `${startYear}-${endYear}`;
 
 	const [animatedProgress, setAnimatedProgress] = useState(0);
@@ -57,16 +57,16 @@ const CourseCard = ({ course, onDelete }) => {
 			{/* Delete Button */}
 			<FontAwesomeIcon
 				icon={faTrash}
-				onClick={() => onDelete(course.id)}
+				onClick={() => onDelete(project._id)}
 				className="absolute top-6 left-4 bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition z-10"
 			/>
 
-			{/* Course Name */}
-			<h2 className="text-2xl font-bold text-white mb-2">{course.name}</h2>
+			{/* project Name */}
+			<h2 className="text-2xl font-bold text-white mb-2">{project.name}</h2>
 
 			{/* Semester + Year */}
 			<p className="text-sm text-white mb-4">
-				סמסטרים {course.semesters} • {yearDisplay}
+				סמסטרים {project.semesters} • {yearDisplay}
 			</p>
 
 			{/* Progress */}
@@ -82,4 +82,4 @@ const CourseCard = ({ course, onDelete }) => {
 	);
 };
 
-export default CourseCard;
+export default ProjectCard;

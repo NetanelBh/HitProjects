@@ -1,4 +1,4 @@
-const DeleteModal = () => {
+const DeleteModal = ({ onDelete, onCancel }) => {
 	return (
 		<div>
 			<div id="modal">
@@ -36,23 +36,21 @@ const DeleteModal = () => {
 								/>
 							</svg>
 							<div className="mt-6">
-								<h4 className="text-slate-900 text-lg font-semibold">
-									מחיקת קורס
-								</h4>
-								<p className="text-sm text-slate-600 mt-3">
-									האם אתה בטוח שברצונך למחוק?
-								</p>
+								<h4 className="text-slate-900 text-lg font-semibold">מחיקת קורס</h4>
+								<p className="text-sm text-slate-600 mt-3">האם אתה בטוח שברצונך למחוק?</p>
 							</div>
 						</div>
 
 						<div className="flex flex-col space-y-3">
 							<button
+								onClick={onDelete}
 								type="button"
 								className="px-4 py-2 rounded-md cursor-pointer text-white text-sm font-medium tracking-wide bg-red-500 hover:bg-red-600 active:bg-red-500"
 							>
 								Delete
 							</button>
 							<button
+								onClick={onCancel}
 								id="closeButton"
 								type="button"
 								className="px-4 py-2 rounded-md cursor-pointer text-slate-900 text-sm font-medium tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200"
