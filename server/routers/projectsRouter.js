@@ -22,10 +22,10 @@ router.get("/", async (req, res) => {
 
 router.post("/create", async (req, res) => {
 	try {
-		const { name, year, semesters } = req.body;
+		const { name, startDate, endDate, semesters } = req.body;
 		const lecturer = req.user.userId;
-
-		const project = await projectsServices.create(name, year, semesters, lecturer);
+		
+		const project = await projectsServices.create(name, startDate, endDate, semesters, lecturer);
 		if (!project) {
 			return res.send({ status: false, data: "Project creation failed" });
 		}

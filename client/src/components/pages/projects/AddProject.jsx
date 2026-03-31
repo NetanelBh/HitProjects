@@ -8,14 +8,17 @@ import { courseInputs } from "../../utils/utils";
 import SuccessModal from "../../ui/SuccessModal";
 import useApi from "../../../hooks/useHttpRequest";
 
+// TODO: ADD CANCLE BUTTON IF WE WANT TO CANCEL THE ADDING COURSE PROCESSs
+
 const AddProject = () => {
 	const [navigateTo, setNavigateTo] = useState("");
-    const [isCourseExist, setIsCourseExist] = useState(false);
-    const [openModal, setOpenModal] = useState({ regularModal: false, successModal: false });
+	const [isCourseExist, setIsCourseExist] = useState(false);
+	const [openModal, setOpenModal] = useState({ regularModal: false, successModal: false });
 	const [formValues, setFormValues] = useState({
 		name: "",
 		semesters: "",
-		year: "",
+		startDate: "",
+		endDate: "",
 	});
 
 	const navigate = useNavigate();
@@ -27,7 +30,8 @@ const AddProject = () => {
 
 		const course = {
 			name: formValues.name,
-			year: formValues.year,
+			startDate: formValues.startDate,
+			endDate: formValues.endDate,
 			semesters: formValues.semesters,
 		};
 
@@ -36,25 +40,30 @@ const AddProject = () => {
 
 			if (!returnedCourse.status) {
 				setIsCourseExist(true);
+				setOpenModal({ regularModal: true, successModal: false });
 				return;
 			}
 
-			setOpenModal(true);
-			setNavigateTo("/courses"); // navigate to courses list after success
+			setOpenModal({ regularModal: false, successModal: true });
+			setNavigateTo("/dashboard/projects/active");
 		} catch (error) {
 			console.log(error.message);
 		}
 	};
 
-	const closeModalHandler = (type) => {
-		setOpenModal({ [type]: false });
-        // Only when add course is successful, reset the form values and navigate to courses list
-        if (type === "successModal") {
-            setFormValues({ courseName: "", semesters: "", year: "" });
-            setIsCourseExist(false);
-        }
+	const closeModalHandler = () => {
+		setOpenModal({ regularModal: false, successModal: false });
+		// Only when add course is successful, reset the form values and navigate to courses list
+		if (!error) {
+			setFormValues({ courseName: "", semesters: "", year: "" });
+			setIsCourseExist(false);
+		}
 
 		navigate(navigateTo);
+	};
+
+	const cancelHandler = () => {
+		navigate("/dashboard/projects/active");
 	};
 
 	return (
@@ -69,45 +78,59 @@ const AddProject = () => {
 				</div>
 			)}
 
-			{/* 🔵 Modal */}
-			{openModal && (
+			{/* 🔵 success Modal */}
+			{openModal.successModal && (
 				<div className="relative z-40">
-					<SuccessModal onClick={closeModalHandler} title="הוספת קורס" message="הקורס נוסף בהצלחה" />
+					<SuccessModal onClick={closeModalHandler} title="הוספת פרוייקט" message="הפרוייקט נוסף בהצלחה" />
+				</div>
+			)}
+
+			{/* 🔵 Regular Modal */}
+			{openModal.regularModal && (
+				<div className="relative z-40">
+					<Modal onConfirm={closeModalHandler} title="הוספת פרוייקט" text={data} />
 				</div>
 			)}
 
 			{/* 🔵 Form */}
-			{!openModal && (
-				<div className="relative z-10 flex mt-12 justify-center p-4">
-					<div
-						dir="rtl"
-						className="max-w-lg w-full bg-white/80 dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center"
-					>
-						<h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
-							הוספת קורס
-						</h1>
+			<div className="relative z-10 flex mt-12 justify-center p-4">
+				<div
+					dir="rtl"
+					className="max-w-lg w-full bg-white/80 dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center"
+				>
+					<h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
+						הוספת פרוייקט
+					</h1>
 
-						<form onSubmit={addCourseHandler} className="w-full flex flex-col gap-4">
-							{courseInputs.map((input) => (
-								<Input
-									key={input.inputName}
-									{...input}
-									value={formValues[input.inputName]}
-									onChange={(type, value) => setFormValues((prev) => ({ ...prev, [type]: value }))}
-									isUserExist={isCourseExist} // reuse error for existing course
-								/>
-							))}
+					<form onSubmit={addCourseHandler} className="w-full flex flex-col gap-4">
+						{courseInputs.map((input) => (
+							<Input
+								key={input.inputName}
+								{...input}
+								value={formValues[input.inputName]}
+								onChange={(type, value) => setFormValues((prev) => ({ ...prev, [type]: value }))}
+								isUserExist={isCourseExist} // reuse error for existing course
+							/>
+						))}
 
-							<button
-								type="submit"
-								className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm"
-							>
-								הוסף קורס
-							</button>
-						</form>
-					</div>
+						<button
+							type="submit"
+							className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm"
+						>
+							הוסף קורס
+						</button>
+
+						{/* Cancel */}
+						<button
+							type="button"
+							onClick={cancelHandler}
+							className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm w-fit self-center"
+						>
+							ביטול
+						</button>
+					</form>
 				</div>
-			)}
+			</div>
 		</main>
 	);
 };

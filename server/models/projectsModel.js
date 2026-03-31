@@ -6,8 +6,12 @@ const projectSchema = new Schema(
 			type: String,
 			required: true,
 		},
-		year: {
-			type: String,
+		startDate: {
+			type: Date,
+			required: true,
+		},
+		endDate: {
+			type: Date,
 			required: true,
 		},
 		semesters: {

@@ -73,11 +73,11 @@ export const menuItemsData = {
 export const courseInputs = [
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
-		label: "שם הקורס",
+		label: "שם הפרוייקט",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
 			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
-		inputName: "courseName",
+		inputName: "name",
 		type: "text",
 	},
 	{
@@ -88,16 +88,26 @@ export const courseInputs = [
 			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "semesters",
 		type: "text",
-		placeholder: "לדוגמא: א-ב / ג-ד / ג",
+		placeholder: "לדוגמא: א-ב / ב-ג / א",
 	},
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
-		label: "שנה",
+		label: "תאריך התחלה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
 			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
-		inputName: "year",
-		type: "text",
-		placeholder: "לדוגמא: תשפו",
+		inputName: "startDate",
+		type: "Date",
+		placeholder: "לדוגמא: 1.1.2026",
 	},
+	{
+		wrapDivStyle: "flex items-start flex-col justify-start",
+		label: "תאריך סיום",
+		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		inputStyle:
+			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+		inputName: "endDate",
+		type: "Date",
+		placeholder: "לדוגמא: 31.12.2026",
+	}
 ];

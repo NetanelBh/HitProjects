@@ -5,8 +5,8 @@ export const getProjectsByLecturerId = (lecturer) => {
 	return projectsModel.find({ lecturer }).populate("students");
 };
 
-export const create = (name, hebrewYear, semesters, lecturer) => {
-    const project = new projectsModel({ name, hebrewYear, semesters, lecturer });
+export const create = (name, startDate, endDate, semesters, lecturer) => {
+    const project = new projectsModel({ name, startDate, endDate, semesters, lecturer });
     return project.save();
 };
 

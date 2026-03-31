@@ -24,7 +24,7 @@ const SuccessModal = ({ onClick, title, message }) => {
 
 				{/* Only this button closes the modal */}
 				<button
-					onClick={() => onClick("successModal")}
+					onClick={onClick}
 					className="mt-8 w-full px-5 py-2.5 text-white rounded-lg bg-blue-600 hover:bg-blue-700 focus:outline-none"
 				>
 					אישור

@@ -4,8 +4,8 @@ export const getProjectsByLecturerId = (lecturerId) => {
     return projectsRepo.getProjectsByLecturerId(lecturerId);
 };
 
-export const create = (name, year, semesters, lecturer) => {
-    return projectsRepo.create(name, year, semesters, lecturer);
+export const create = (name, startDate, endDate, semesters, lecturer) => {
+    return projectsRepo.create(name, startDate, endDate, semesters, lecturer);
 };
 
 export const update = (projectId, newData) => {

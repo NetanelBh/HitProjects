@@ -1,5 +1,9 @@
+import { useEffect, useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
+import ProgressBar from "../../reuse/ProgressBar";
 
 const calculateProgress = (startDate, endDate) => {
 	const now = new Date();
@@ -17,6 +21,32 @@ const calculateProgress = (startDate, endDate) => {
 
 const CourseCard = ({ course, onDelete }) => {
 	const progress = calculateProgress(course.startDate, course.endDate);
+	// Extract the year from the start date
+	const startYear = new Date(course.startDate).getFullYear();
+	const endYear = new Date(course.endDate).getFullYear();
+	const yearDisplay = startYear === endYear ? startYear : `${startYear}-${endYear}`;
+
+	const [animatedProgress, setAnimatedProgress] = useState(0);
+
+	useEffect(() => {
+		let start = 0;
+		const duration = 2000;
+		const intervalTime = 20;
+		const step = progress / (duration / intervalTime);
+
+		const counter = setInterval(() => {
+			start += step;
+
+			if (start >= progress) {
+				start = progress;
+				clearInterval(counter);
+			}
+
+			setAnimatedProgress(Math.floor(start));
+		}, intervalTime);
+
+		return () => clearInterval(counter);
+	}, [progress]);
 
 	return (
 		<div
@@ -36,21 +66,17 @@ const CourseCard = ({ course, onDelete }) => {
 
 			{/* Semester + Year */}
 			<p className="text-sm text-white mb-4">
-				סמסטר {course.semester} • {course.year}
+				סמסטרים {course.semesters} • {yearDisplay}
 			</p>
 
 			{/* Progress */}
 			<div className="flex flex-col gap-1 w-full">
 				<div className="flex justify-between text-sm text-white w-full">
 					<span>התקדמות</span>
-					<span>{progress}%</span>
+					<span className="font-bold">{animatedProgress}%</span>
 				</div>
-				<div className="w-full h-3 bg-white rounded-full overflow-hidden">
-					<div
-						className="h-full bg-gradient-to-r from-[#fdeff9] via-[#ec38bc] via-[#800080] to-[#7303c0] transition-all duration-500"
-						style={{ width: `${progress}%` }}
-					/>
-				</div>
+
+				<ProgressBar progress={progress} />
 			</div>
 		</div>
 	);
