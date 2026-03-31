@@ -6,6 +6,7 @@ import MainLayout from "../components/layout/MainLayout";
 import AddProject from "../components/pages/projects/AddProject";
 import CoursesPage from "../components/pages/projects/MyProjects";
 import EditProfile from "../components/pages/profile/EditProfile";
+import ProjectItem from "../components/pages/projects/ProjectItem";
 import ResetPassword from "../components/pages/auth/ResetPassword";
 import ForgotPassword from "../components/pages/auth/ForgotPassdord";
 
@@ -21,6 +22,7 @@ const AppRouter = () => {
 					<Route path="projects/:type" element={<CoursesPage />} />
 					<Route path="profile/edit-profile" element={<EditProfile />} />
 					<Route path="projects/add-project" element={<AddProject />} />
+					<Route path="projects/item" element={<ProjectItem />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

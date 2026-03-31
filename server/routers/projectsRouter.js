@@ -100,4 +100,20 @@ router.delete("/delete/:projectId", async (req, res) => {
 	}
 });
 
+router.post("/projects/:projectId/update-meeting", async (req, res) => {
+	try {
+		const { projectId } = req.params;
+		const { lastMeeting } = req.body;
+
+		const updatedProject = await projectsServices.updateLastMeeting(projectId, lastMeeting);
+		if (!updatedProject) {
+			return res.send({ status: false, data: "Update last meeting failed" });
+		}
+
+		res.send({ status: true, data: updatedProject });
+	} catch (error) {
+		res.send({ status: false, data: error.message });
+	}
+});
+
 export default router;

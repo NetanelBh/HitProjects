@@ -55,6 +55,10 @@ const CoursesPage = () => {
 		}
 	};
 
+	const editProjectHandler = (project) => {
+		navigate("/dashboard/projects/item", { state: { project } });
+	};
+
 	const closeModalHandler = () => {
 		setOpenModal(false);
 	};
@@ -133,7 +137,14 @@ const CoursesPage = () => {
 				)}
 
 				{filteredProjects.map((project) => (
-					<ProjectCard key={project._id} project={project} onDelete={(id) => deleteConfirmationHandler(id)} />
+					<ProjectCard
+						key={project._id}
+						// Tell the component if the project completed or active - to render the edit and delete buttons
+						type={type}
+						project={project}
+						onDelete={(id) => deleteConfirmationHandler(id)}
+						onClick={() => editProjectHandler(project)}
+					/>
 				))}
 			</div>
 		</div>

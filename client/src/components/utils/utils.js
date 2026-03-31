@@ -109,5 +109,19 @@ export const courseInputs = [
 		inputName: "endDate",
 		type: "Date",
 		placeholder: "לדוגמא: 31.12.2026",
-	}
+	},
 ];
+
+export const calculateProgress = (startDate, endDate) => {
+	const now = new Date();
+	const start = new Date(startDate);
+	const end = new Date(endDate);
+
+	if (now <= start) return 0;
+	if (now >= end) return 100;
+
+	const total = end - start;
+	const passed = now - start;
+
+	return Math.round((passed / total) * 100);
+};

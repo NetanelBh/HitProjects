@@ -23,6 +23,9 @@ const projectSchema = new Schema(
 			ref: "User",
 			required: true,
 		},
+		lastMeeting: {
+			type: Date,
+		},
 		students: [
 			{
 				type: Schema.Types.ObjectId,
