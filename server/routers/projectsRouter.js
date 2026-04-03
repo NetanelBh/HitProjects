@@ -51,14 +51,16 @@ router.patch("/update/:projectId", async (req, res) => {
 	}
 });
 
+// Add student to project
 router.patch("/add-student/:projectId", async (req, res) => {
 	const { projectId } = req.params;
 	const studentData = req.body;
 
 	try {
+		// Check if the student created already
 		let student = await getStudentById(studentData.studentId);
 
-		// Check if the student created already, if not, create it
+		// If not, create it
 		if (!student) {
 			try {
 				const {student, isNew} = await create(
@@ -68,7 +70,7 @@ router.patch("/add-student/:projectId", async (req, res) => {
 					studentData.studentId,
 				);
 				if (student && !isNew) {
-					return res.send({ status: false, data: "סטודנט קיים בקורס הנוכחי" });
+					return res.send({ status: false, data: "סטודנט קיים בפרוייקט הנוכחי" });
 				} else if (!student && !isNew) {
 					return res.send({ status: false, data: "יצירת הסטודנט נכשלה" });
 				} else {

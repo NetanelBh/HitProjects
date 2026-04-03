@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPenToSquare, faFileExcel, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import Table from "../../ui/Table";
 import ProgressBar from "../../reuse/ProgressBar";
@@ -12,9 +11,11 @@ const ProjectItem = () => {
 
 	const project = JSON.parse(localStorage.getItem("selectedProject"));
 
-	const [students, setStudents] = useState([]);
+	const [	students, setStudents] = useState([]);
 	const progress = calculateProgress(project.startDate, project.endDate);
 	const [animatedProgress, setAnimatedProgress] = useState(0);
+
+	const {del, isLoading} = useApi();
 
 	useEffect(() => {
 		let start = 0;
@@ -47,11 +48,15 @@ const ProjectItem = () => {
 	const addStudentHandler = () => {
 		navigate("/dashboard/projects/add-student");
 	};
-	const onEditStudent = (student) => {};
-	const onDeleteStudent = (studentId) => {};
+	const editStudentHandler = (student) => {};
+	const deleteStudentHandler = async (studentId) => {
+		try {
+			const resp = await del()
+		} catch (error) {
+			
+		}
+	};
 	const onExportExcel = () => {};
-
-    // TODO: SEND TO TABLE COMPONENT THE STUDENTS DATA TO GENERIC TABLE
 
 	return (
 		<div className="flex justify-center">
@@ -91,7 +96,7 @@ const ProjectItem = () => {
 				<div className="flex justify-between items-center mt-4">
 					<button
 						onClick={addStudentHandler}
-						className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition cursor-pointer"
+						className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-700 text-white px-4 py-2 rounded-xl transition cursor-pointer"
 					>
 						<FontAwesomeIcon icon={faPlus} />
 						הוסף סטודנט
@@ -101,7 +106,7 @@ const ProjectItem = () => {
 						<FontAwesomeIcon
 							icon={faFileExcel}
 							onClick={onExportExcel}
-							className="text-green-400 text-3xl cursor-pointer hover:scale-110 transition"
+							className="text-green-400 text-3xl cursor-pointer hover:scale-110 active:scale-110 transition"
 						/>
 
 						{/* Tooltip */}
@@ -116,7 +121,12 @@ const ProjectItem = () => {
 				</div>
 
 				{/* Students Table */}
-				<Table />
+				<Table
+					headers={["שם", "ת.ז.", "פלאפון", "פעולות"]}
+					rows={students}
+					onDelete={deleteStudentHandler}
+					onEdit={editStudentHandler}
+				/>
 			</div>
 		</div>
 	);
