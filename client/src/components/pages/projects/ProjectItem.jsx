@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare, faFileExcel, faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import Table from "../../ui/Table";
 import ProgressBar from "../../reuse/ProgressBar";
 import { calculateProgress } from "../../utils/utils";
 
 const ProjectItem = () => {
-	const location = useLocation();
-	const { project } = location.state || {};
-	const [students, setStudents] = useState([]);
+	const navigate = useNavigate();
 
+	const project = JSON.parse(localStorage.getItem("selectedProject"));
+
+	const [students, setStudents] = useState([]);
 	const progress = calculateProgress(project.startDate, project.endDate);
 	const [animatedProgress, setAnimatedProgress] = useState(0);
 
@@ -33,19 +35,23 @@ const ProjectItem = () => {
 	}, [progress]);
 
 	useEffect(() => {
-		if (project?.students) {
+		if (project?.students.length > 0) {
 			setStudents(project.students);
 		}
-	}, [project]);
+	}, [project.students.length]);
 
 	const startYear = new Date(project.startDate).getFullYear();
 	const endYear = new Date(project.endDate).getFullYear();
 	const yearDisplay = startYear === endYear ? startYear : `${startYear}-${endYear}`;
 
-	const onAddStudent = () => {};
+	const addStudentHandler = () => {
+		navigate("/dashboard/projects/add-student");
+	};
 	const onEditStudent = (student) => {};
 	const onDeleteStudent = (studentId) => {};
 	const onExportExcel = () => {};
+
+    // TODO: SEND TO TABLE COMPONENT THE STUDENTS DATA TO GENERIC TABLE
 
 	return (
 		<div className="flex justify-center">
@@ -82,66 +88,35 @@ const ProjectItem = () => {
 				</div>
 
 				{/* Actions above table */}
-				<div className="flex justify-between items-center mt-4 mb-2">
+				<div className="flex justify-between items-center mt-4">
 					<button
-						onClick={onAddStudent}
-						className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition"
+						onClick={addStudentHandler}
+						className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition cursor-pointer"
 					>
 						<FontAwesomeIcon icon={faPlus} />
 						הוסף סטודנט
 					</button>
 
-					<FontAwesomeIcon
-						icon={faFileExcel}
-						onClick={onExportExcel}
-						className="text-green-500 text-2xl cursor-pointer hover:scale-110 transition"
-					/>
+					<div className="relative group">
+						<FontAwesomeIcon
+							icon={faFileExcel}
+							onClick={onExportExcel}
+							className="text-green-400 text-3xl cursor-pointer hover:scale-110 transition"
+						/>
+
+						{/* Tooltip */}
+						<div
+							className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 
+	                opacity-0 group-hover:opacity-100 transition duration-200
+	                bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap"
+						>
+							Export to excel
+						</div>
+					</div>
 				</div>
 
 				{/* Students Table */}
-				<div className="overflow-x-auto">
-					<table className="min-w-full divide-y divide-gray-700">
-						<thead className="bg-gray-800">
-							<tr>
-								<th className="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-									שם
-								</th>
-								<th className="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-									ת"ז
-								</th>
-								<th className="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-									טלפון
-								</th>
-								<th className="px-4 py-2 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">
-									פעולות
-								</th>
-							</tr>
-						</thead>
-						<tbody className="divide-y divide-gray-700">
-							{students.map((student) => (
-								<tr key={student._id} className="bg-gray-900 hover:bg-gray-800 transition">
-									<td className="px-4 py-2 text-white">
-										{student.firstName} {student.lastName}
-									</td>
-									<td className="px-4 py-2 text-gray-300">{student.studentId}</td>
-									<td className="px-4 py-2 text-gray-300">{student.phone}</td>
-									<td className="px-4 py-2 flex justify-center gap-2">
-										<FontAwesomeIcon
-											icon={faPenToSquare}
-											onClick={() => onEditStudent(student)}
-											className="text-blue-400 cursor-pointer hover:scale-110 transition"
-										/>
-										<FontAwesomeIcon
-											icon={faTrash}
-											onClick={() => onDeleteStudent(student._id)}
-											className="text-red-500 cursor-pointer hover:scale-110 transition"
-										/>
-									</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
+				<Table />
 			</div>
 		</div>
 	);

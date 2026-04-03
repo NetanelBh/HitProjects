@@ -8,8 +8,6 @@ import { courseInputs } from "../../utils/utils";
 import SuccessModal from "../../ui/SuccessModal";
 import useApi from "../../../hooks/useHttpRequest";
 
-// TODO: ADD CANCLE BUTTON IF WE WANT TO CANCEL THE ADDING COURSE PROCESSs
-
 const AddProject = () => {
 	const [navigateTo, setNavigateTo] = useState("");
 	const [isCourseExist, setIsCourseExist] = useState(false);

@@ -4,8 +4,25 @@ export const getStudentById = (studentId) => {
     return studentsRepo.getStudentById(studentId);
 };
 
-export const create = (firstName, lastName, phone, studentId) => {
-    return studentsRepo.createStudent(firstName, lastName, phone, studentId);
+export const create = async (firstName, lastName, phone, studentId) => {
+    try {
+        const student = await getStudentById(studentId);
+        
+        // If the student already exists, return it with isNew false
+        if (student) {
+            return { student, isNew: false };
+        }
+        
+        // If the student doesn't exist, cteate it
+        try {
+            const student = await studentsRepo.create(firstName, lastName, phone, studentId);
+            return { student, isNew: true };
+        } catch (error) {
+            return { student: null, isNew: false };
+        }
+    } catch (error) {
+        return { student: null, isNew: false };
+    }
 };
 
 export const update = (studentId, studentData) => {

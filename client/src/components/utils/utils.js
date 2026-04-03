@@ -112,6 +112,45 @@ export const courseInputs = [
 	},
 ];
 
+export const studentInputs = [
+	{
+		wrapDivStyle: "flex items-start flex-col justify-start",
+		label: "שם פרטי",
+		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		inputStyle:
+			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+		inputName: "fname",
+		type: "text",
+	},
+	{
+		wrapDivStyle: "flex items-start flex-col justify-start",
+		label: "שם משפחה",
+		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		inputStyle:
+			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+		inputName: "lname",
+		type: "text",
+	},
+	{
+		wrapDivStyle: "flex items-start flex-col justify-start",
+		label: "טלפון",
+		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		inputStyle:
+			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+		inputName: "phone",
+		type: "tel",
+	},
+	{
+		wrapDivStyle: "flex items-start flex-col justify-start",
+		label: "מספר ת.ז.",
+		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		inputStyle:
+			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+		inputName: "id",
+		type: "text",
+	},
+];
+
 export const calculateProgress = (startDate, endDate) => {
 	const now = new Date();
 	const start = new Date(startDate);

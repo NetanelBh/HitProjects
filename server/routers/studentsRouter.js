@@ -6,20 +6,6 @@ import * as studendsServices from "../services/studentsServices.js";
 
 const router = express.Router();
 
-router.post("/create", async (req, res) => {
-    const { firstName, lastName, phone, studentId } = req.body;
-    try {
-        const student = await studendsServices.createStudent(firstName, lastName, phone, studentId);
-        if (!student) {
-            return res.send({status: false, data: "Student creation failed"});
-        }
-
-        res.send({status: true, data: student});
-    } catch (error) {
-        res.send({ status: false, data: error.message });
-    }
-});
-
 router.patch("/update/:studentId", async (req, res) => {
     const { studentId } = req.params;
     const { firstName, lastName, phone } = req.body;

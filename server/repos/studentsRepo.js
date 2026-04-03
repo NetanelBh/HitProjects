@@ -1,11 +1,17 @@
 import StudentsModel from "../models/studentsModel.js";
 
 export const getStudentById = (studentId) => {
-	return StudentsModel.findById(studentId);
+	return StudentsModel.findOne({studentId});
 };
 
-export const createStudent = (firstName, lastName, phone, studentId) => {
-	const newStudent = new StudentsModel({ firstName, lastName, phone, studentId });
+export const create = (firstName, lastName, phone, studentId) => {
+	const newStudent = new StudentsModel({
+		firstName,
+		lastName,
+		phone,
+		studentId,
+	});
+	
 	return newStudent.save();
 };
 

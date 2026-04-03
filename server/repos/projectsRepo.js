@@ -19,17 +19,17 @@ export const remove = (projectId) => {
     return projectsModel.findByIdAndDelete(projectId);
 };
 
-export const addStudent = (projectId, studentId) => {
-    return projectsModel.findByIdAndUpdate(
-        projectId,
+export const addStudent = (projectId, studentId) => {    
+    return projectsModel.findOneAndUpdate(
+        { _id: projectId },
         { $addToSet: { students: studentId } },
         { returnDocument: "after" },
     );
 };
 
 export const removeStudent = (projectId, studentId) => {
-    return projectsModel.findByIdAndUpdate(
-        projectId,
+    return projectsModel.findOneAndUpdate(
+        { _id: projectId },
         { $pull: { students: studentId } },
         { returnDocument: "after" },
     );

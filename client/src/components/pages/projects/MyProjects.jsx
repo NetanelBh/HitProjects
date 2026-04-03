@@ -17,6 +17,9 @@ const CoursesPage = () => {
 
 	const { get, del } = useApi();
 
+	// When we enter this page, we clear our selected project from the last time we clicked on the edit button.
+	localStorage.removeItem("selectedProject");
+
 	useEffect(() => {
 		// Get the data from server only once
 		const fetchData = async () => {
@@ -56,7 +59,9 @@ const CoursesPage = () => {
 	};
 
 	const editProjectHandler = (project) => {
-		navigate("/dashboard/projects/item", { state: { project } });
+		// Save the project in local storage to use it in edit page
+		localStorage.setItem("selectedProject", JSON.stringify(project));
+		navigate("/dashboard/projects/item");
 	};
 
 	const closeModalHandler = () => {

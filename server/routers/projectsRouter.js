@@ -24,7 +24,7 @@ router.post("/create", async (req, res) => {
 	try {
 		const { name, startDate, endDate, semesters } = req.body;
 		const lecturer = req.user.userId;
-		
+
 		const project = await projectsServices.create(name, startDate, endDate, semesters, lecturer);
 		if (!project) {
 			return res.send({ status: false, data: "Project creation failed" });
@@ -51,35 +51,42 @@ router.patch("/update/:projectId", async (req, res) => {
 	}
 });
 
-router.patch("/projects/:projectId/add-student", async (req, res) => {
+router.patch("/add-student/:projectId", async (req, res) => {
 	const { projectId } = req.params;
-	const { studentData } = req.body;
+	const studentData = req.body;
 
 	try {
-        let student = await getStudentById(studentData.id);
+		let student = await getStudentById(studentData.studentId);
+
 		// Check if the student created already, if not, create it
 		if (!student) {
 			try {
-				student = await create(
+				const {student, isNew} = await create(
 					studentData.firstName,
 					studentData.lastName,
 					studentData.phone,
-					studentData.id,
+					studentData.studentId,
 				);
-				if (!student) {
-					return res.send({ status: false, data: "Student creation failed" });
+				if (student && !isNew) {
+					return res.send({ status: false, data: "סטודנט קיים בקורס הנוכחי" });
+				} else if (!student && !isNew) {
+					return res.send({ status: false, data: "יצירת הסטודנט נכשלה" });
+				} else {
+					// Add the student to the project
+					const updatedProject = await projectsServices.addStudent(projectId, student._id);
+
+					// If can't add the student to project, remove the student from DB.
+					if (!updatedProject) {
+						await studentsServices.remove(student._id);
+						return res.send({ status: false, data: "הוספת הסטודנט לפרוייקט נכשלה" });
+					}
+
+					res.send({ status: true, data: updatedProject });
 				}
 			} catch (error) {
 				return res.send({ status: false, data: error.message });
 			}
 		}
-
-		const updatedProject = await projectsServices.addStudent(projectId, student.studentId);
-		if (!updatedProject) {
-			return res.send({ status: false, data: "Add student to project failed" });
-		}
-
-		res.send({ status: true, data: updatedProject });
 	} catch (error) {
 		res.send({ status: false, data: error.message });
 	}
