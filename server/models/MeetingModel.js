@@ -14,7 +14,7 @@ const meetingSchema = new Schema({
 		required: true,
 		index: true,
 	},
-});
+}, {versionKey: false});
 
 const Meeting = model("Meeting", meetingSchema);
 

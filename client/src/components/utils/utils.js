@@ -169,77 +169,85 @@ import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 
 export const exportToExcel = async (studentsList) => {
-  const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet("סטודנטים");
+	const workbook = new ExcelJS.Workbook();
+	const worksheet = workbook.addWorksheet("סטודנטים");
 
-  // 🔹 RTL sheet
-  worksheet.views = [{ rightToLeft: true }];
+	// 🔹 RTL sheet
+	worksheet.views = [{ rightToLeft: true }];
 
-  // 🔹 Define columns
-  worksheet.columns = [
-    { header: "", key: "index", width: 5 },
-    { header: "שם הפרויקט", key: "projectName", width: 25 },
-    { header: "שם", key: "name", width: 25 },
-    { header: "ת.ז.", key: "id", width: 15 },
-    { header: "פלאפון", key: "phone", width: 18 },
-  ];
+	// 🔹 Define columns
+	worksheet.columns = [
+		{ header: "", key: "index", width: 5 },
+		{ header: "שם הפרויקט", key: "projectName", width: 25 },
+		{ header: "שם", key: "name", width: 25 },
+		{ header: "ת.ז.", key: "id", width: 15 },
+		{ header: "פלאפון", key: "phone", width: 18 },
+	];
 
-  // 🔹 Add rows
-  studentsList.forEach((s, index) => {
-    worksheet.addRow({
-      index: index + 1,
-      projectName: s.projectName || "",
-      name: s.name || "",
-      id: s.id || "",
-      phone: s.phone || "",
-    });
-  });
+	// 🔹 Add rows
+	studentsList.forEach((s, index) => {
+		worksheet.addRow({
+			index: index + 1,
+			projectName: s.projectName || "",
+			name: s.name || "",
+			id: s.id || "",
+			phone: s.phone || "",
+		});
+	});
 
-  // 🔹 Style header row
-  const headerRow = worksheet.getRow(1);
-  headerRow.font = { bold: true };
-  headerRow.alignment = { horizontal: "center", vertical: "middle" };
-  headerRow.eachCell((cell) => {
-    cell.fill = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "FFADD8E6" }, // Light Blue
-    };
-    cell.border = {
-      top: { style: "thin" },
-      left: { style: "thin" },
-      bottom: { style: "thin" },
-      right: { style: "thin" },
-    };
-  });
+	// 🔹 Style header row
+	const headerRow = worksheet.getRow(1);
+	headerRow.font = { bold: true };
+	headerRow.alignment = { horizontal: "center", vertical: "middle" };
+	headerRow.eachCell((cell) => {
+		cell.fill = {
+			type: "pattern",
+			pattern: "solid",
+			fgColor: { argb: "FFADD8E6" }, // Light Blue
+		};
+		cell.border = {
+			top: { style: "thin" },
+			left: { style: "thin" },
+			bottom: { style: "thin" },
+			right: { style: "thin" },
+		};
+	});
 
-  // 🔹 Right-align all data cells & apply zebra colors
-  worksheet.eachRow((row, rowNumber) => {
-    // Skip header
-    if (rowNumber === 1) return;
+	// 🔹 Right-align all data cells & apply zebra colors
+	worksheet.eachRow((row, rowNumber) => {
+		// Skip header
+		if (rowNumber === 1) return;
 
-    row.eachCell((cell) => {
-      cell.alignment = { horizontal: "right", vertical: "middle" };
-      cell.border = {
-        top: { style: "thin" },
-        left: { style: "thin" },
-        bottom: { style: "thin" },
-        right: { style: "thin" },
-      };
+		row.eachCell((cell) => {
+			cell.alignment = { horizontal: "right", vertical: "middle" };
+			cell.border = {
+				top: { style: "thin" },
+				left: { style: "thin" },
+				bottom: { style: "thin" },
+				right: { style: "thin" },
+			};
 
-      // Zebra striping
-      cell.fill = {
-        type: "pattern",
-        pattern: "solid",
-        fgColor: { argb: rowNumber % 2 === 0 ? "FFFFFFFF" : "FFFFFACD" }, // Even = white, Odd = light yellow
-      };
-    });
-  });
+			// Zebra striping
+			cell.fill = {
+				type: "pattern",
+				pattern: "solid",
+				fgColor: { argb: rowNumber % 2 === 0 ? "FFFFFFFF" : "FFFFFACD" }, // Even = white, Odd = light yellow
+			};
+		});
+	});
 
-  // 🔹 Generate file
-  const buffer = await workbook.xlsx.writeBuffer();
-  const file = new Blob([buffer], {
-    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  });
-  saveAs(file, "students.xlsx");
+	// 🔹 Generate file
+	const buffer = await workbook.xlsx.writeBuffer();
+	const file = new Blob([buffer], {
+		type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+	});
+	saveAs(file, "students.xlsx");
+};
+
+export const formatFunction = (isoDate) => {
+	return new Intl.DateTimeFormat("he-IL", {
+		day: "2-digit",
+		month: "2-digit",
+		year: "numeric",
+	}).format(new Date(isoDate));
 };

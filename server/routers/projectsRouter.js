@@ -3,6 +3,7 @@ import express from "express";
 import * as projectsServices from "../services/projectsServices.js";
 import { create, getStudentById } from "../services/studentsServices.js";
 import { addMeeting } from "../services/meetingsServices.js";
+import authentication from "../middleware/authentication.js";
 
 const router = express.Router();
 
@@ -139,10 +140,29 @@ router.post("/add-meeting/:projectId", async (req, res) => {
 			return res.send({ status: false, data: "הוספת השיחה נכשלה, אנא נסה שנית" });
 		}
 
+		// Update the new data that the project need for whatsapp
+		const newData = {lastMeetingDate: lastMeeting, reminderSent: false};
+		const latestProject = await projectsServices.update(projectId, newData);
+		console.log(latestProject);
+		
+
 		res.send({ status: true, data: updatedProject });
 	} catch (error) {
 		res.send({ status: false, data: error.message });
 	}
+});
+
+// 🔹 Debug route to check reminder status
+router.get("/debug-reminders", authentication, async (req, res) => {
+  try {
+    const projects = await projectsServices.getAll().select(
+      "name lastMeetingDate reminderSent whatsappGroupId"
+    );
+
+    res.json(projects);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 export default router;

@@ -1,38 +1,51 @@
-	import { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
-	const projectSchema = new Schema(
-		{
-			name: {
-				type: String,
-				required: true,
-			},
-			startDate: {
-				type: Date,
-				required: true,
-			},
-			endDate: {
-				type: Date,
-				required: true,
-			},
-			semesters: {
-				type: String,
-				required: true,
-			},
-			lecturer: {
-				type: Schema.Types.ObjectId,
-				ref: "User",
-				required: true,
-			},
-			students: [
-				{
-					type: Schema.Types.ObjectId,
-					ref: "Student",
-				},
-			],
+const projectSchema = new Schema(
+	{
+		name: {
+			type: String,
+			required: true,
 		},
-		{ versionKey: false },
-	);
+		startDate: {
+			type: Date,
+			required: true,
+		},
+		endDate: {
+			type: Date,
+			required: true,
+		},
+		semesters: {
+			type: String,
+			required: true,
+		},
+		lecturer: {
+			type: Schema.Types.ObjectId,
+			ref: "User",
+			required: true,
+		},
+		students: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: "Student",
+			},
+		],
+		// 🔥 REQUIRED for WhatsApp
+		whatsappGroupId: {
+			type: String,
+		},
 
-	const Project = model("Project", projectSchema);
+		// 🧠 Core logic
+		lastMeetingDate: {type: Date},
 
-	export default Project;
+		// prevents duplicate sending
+		reminderSent: {
+			type: Boolean,
+			default: false,
+		},
+	},
+	{ versionKey: false },
+);
+
+const Project = model("Project", projectSchema);
+
+export default Project;

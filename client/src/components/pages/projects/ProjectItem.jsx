@@ -6,9 +6,10 @@ import { faUserPlus, faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import Table from "../../ui/Table";
 import Modal from "../../ui/Modal";
 import Loading from "../../ui/Loading";
+import DeleteModal from "../../ui/DeleteModal";
 import ProgressBar from "../../reuse/ProgressBar";
 import useApi from "../../../hooks/useHttpRequest";
-import { calculateProgress, exportToExcel } from "../../utils/utils";
+import { calculateProgress, exportToExcel, formatFunction } from "../../utils/utils";
 
 const ProjectItem = () => {
 	localStorage.removeItem("student");
@@ -19,9 +20,10 @@ const ProjectItem = () => {
 	const [students, setStudents] = useState([]);
 	const [lastMeeting, setLastMeeting] = useState("");
 	const [meetingsList, setMeetingsList] = useState([]);
+	const [selectedStudent, setSelectedStudent] = useState("");
 	const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 	const [animatedProgress, setAnimatedProgress] = useState(0);
-	const [modal, setModal] = useState({ isOpen: false, title: "", text: "" });
+	const [modal, setModal] = useState({ type: "regular", isOpen: false, title: "", text: "" });
 
 	const progress = calculateProgress(project.startDate, project.endDate);
 
@@ -55,15 +57,15 @@ const ProjectItem = () => {
 		const fetchMeetings = async () => {
 			try {
 				const res = await get(`/meetings/${project._id}`);
-				
+
 				if (res.status) {
 					return setMeetingsList(res.data);
 				}
 				if (res.data === "אין הסטורית פגישות") return;
-				
-				return setModal({ isOpen: true, title: "היסטורית מפגשים", text: res.data || res });
+
+				return setModal({ type: "regular", isOpen: true, title: "היסטורית מפגשים", text: res.data || res });
 			} catch (err) {
-				return setModal({ isOpen: true, title: "היסטורית מפגשים", text: err.message });
+				return setModal({ type: "regular", isOpen: true, title: "היסטורית מפגשים", text: err.message });
 			}
 		};
 
@@ -79,18 +81,23 @@ const ProjectItem = () => {
 	};
 
 	const editStudentHandler = (student) => {
-		localStorage.setItem("student", JSON.stringify(student));
-		navigate("/dashboard/projects/edit-student");
+		setModal({ type: "remove", isOpen: true, title: "מחיקת סטודנט מפרוייקט", text: "האם אתה בטוח?" });
 	};
 
-	const deleteStudentHandler = async (studentId) => {
+	const deleteStudentHandler = (studentId) => {
+		setSelectedStudent(studentId);
+		setModal({ type: "remove", isOpen: true, title: "מחיקת סטודנט מפרוייקט" });
+	};
+
+	const confirmDeleteStudent = async () => {
 		try {
-			const resp = await patch(`/projects/remove-student/${project._id}`, { studentId });
+			const resp = await patch(`/projects/remove-student/${project._id}`, { studentId: selectedStudent });
 			if (resp.status) {
 				localStorage.setItem("selectedProject", JSON.stringify(resp.data));
 				setStudents(resp.data.students);
+				setModal({ type: "", isOpen: false, title: "", text: "" });
 			} else {
-				setModal({ isOpen: true, title: "מחיקת משתמש מפרוייקט", text: resp.data });
+				setModal({ type: "regular", isOpen: true, title: "מחיקת משתמש מפרוייקט", text: resp.data });
 			}
 		} catch (error) {}
 	};
@@ -111,30 +118,38 @@ const ProjectItem = () => {
 		// If the user didn't enter date
 		if (lastMeeting === "") return;
 
-		// Convert the date to hebrew
-		const [year, month, day] = lastMeeting.split("-");
-		const hebrewDate = `${day}-${month}-${year}`;
+		// Close the dropdown(if open)
+		if (isDropDownOpen) setIsDropDownOpen(false);
 
 		try {
-			const resp = await post(`/projects/add-meeting/${project._id}`, { lastMeeting: hebrewDate });
+			const resp = await post(`/projects/add-meeting/${project._id}`, { lastMeeting: lastMeeting });
 			if (!resp.status) {
-				return setModal({ isOpen: true, title: "הוספת פגישה", text: resp.data });
+				return setModal({ type: "regular", isOpen: true, title: "הוספת פגישה", text: resp.data });
 			}
+
+			setLastMeeting("");
+			setMeetingsList((prev) => [...prev, resp.data]);
 		} catch (error) {
-			return setModal({ isOpen: true, title: "הוספת פגישה", text: error.message });
+			return setModal({ type: "regular", isOpen: true, title: "הוספת פגישה", text: error.message });
 		}
 	};
 
 	const closeModalHandler = () => {
-		setModal({ isOpen: false, text: "" });
+		// Only when remove student, we store his id, after the remove, will reset the state
+		if (modal.type === "remove") setSelectedStudent("");
+
+		setModal({ type: "", isOpen: false, title: "", text: "" });
 	};
 
 	const toggleDropdown = () => {
+		if (meetingsList.length === 0) return;
+
+		// Only if there is at least one meeting, change the button
 		setIsDropDownOpen((prev) => !prev);
 	};
 
-	console.log(meetingsList);
-	// TODO: FIX THE PROBLEM OF THE PRINT INSIDE THE RETURN TO THE MEETINGS DATA IN DROPDOWN
+	// Sort the meetings list
+	const sortedMeetings = [...meetingsList].sort((a, b) => new Date(b.meetingDate) - new Date(a.meetingDate));
 
 	return (
 		<>
@@ -142,13 +157,22 @@ const ProjectItem = () => {
 
 			{!isLoading && (
 				<>
-					{modal.isOpen && <Modal title={modal.title} text={modal.text} onConfirm={closeModalHandler} />}
+					{/* Modal for errors */}
+					{modal.isOpen && modal.type === "regular" && (
+						<Modal title={modal.title} text={modal.text} onConfirm={closeModalHandler} />
+					)}
 
+					{/* Modal for removing student */}
+					{modal.isOpen && modal.type === "remove" && (
+						<DeleteModal onDelete={confirmDeleteStudent} onCancel={closeModalHandler} title={modal.title} />
+					)}
+
+					{/* If there is no errors or finished loading, show the data */}
 					<div className="flex justify-center">
 						<div
 							dir="rtl"
 							className="relative bg-gray-900/50 backdrop-blur-md rounded-3xl border border-red-400 p-6 mb-6 mt-6 flex flex-col gap-4 
-								w-full sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto
+								w-full lg:max-w-4xl xl:max-w-5xl mx-auto
 								transition duration-300
 								hover:shadow-[0_-3px_6px_rgba(0,0,0,0.1),0_12px_8px_rgba(0,0,0,0.18),_-6px_8px_16px_rgba(0,0,0,0.12),_6px_8px_16px_rgba(0,0,0,0.12)]
 								active:shadow-[0_-3px_6px_rgba(0,0,0,0.1),0_12px_8px_rgba(0,0,0,0.18),_-6px_8px_16px_rgba(0,0,0,0.12),_6px_8px_16px_rgba(0,0,0,0.12)]"
@@ -171,59 +195,24 @@ const ProjectItem = () => {
 							</div>
 
 							{/* Sub-header: last meeting + meetings actions */}
-							<div className="flex justify-between items-center w-full">
-								{/* Right: Meetings History Dropdown */}
-								<div className="w-max mt-6">
-									<button
-										type="button"
-										id="dropdownToggle"
-										className={`px-6 py-3 rounded-sm text-black ${isDropDownOpen ? "bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-500 hover:brightness-110 active:brightness-110 text-white" : "bg-[#d0e7ff]"} text-sm font-medium border-0 outline-0 cursor-pointer hover:bg-gradient-to-r hover:from-sky-500 hover:via-blue-600 hover:to-indigo-500 active:brightness-110 hover:text-white active:bg-blue-600`}
-										onClick={toggleDropdown}
-									>
-										היסטוריית מפגשים
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											className="w-3 fill-black inline mr-3"
-											viewBox="0 0 24 24"
-										>
-											<path
-												fillRule="evenodd"
-												d="M11.99997 18.1669a2.38 2.38 0 0 1-1.68266-.69733l-9.52-9.52a2.38 2.38 0 1 1 3.36532-3.36532l7.83734 7.83734 7.83734-7.83734a2.38 2.38 0 1 1 3.36532 3.36532l-9.52 9.52a2.38 2.38 0 0 1-1.68266.69734z"
-												clipRule="evenodd"
-												data-original="#000000"
-											/>
-										</svg>
-									</button>
-
-									{isDropDownOpen && (
-										<ul
-											id="dropdownMenu"
-											className="shadow-lg bg-white py-2 z-[1000] min-w-full w-max rounded-sm max-h-96 overflow-auto"
-										>
-											{meetingsList.map((meeting) => (
-												<li
-													key={meeting._id}
-													className="dropdown-item flex items-center py-1 px-6 hover:bg-slate-100 text-slate-600 font-medium text-sm"
-												>
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														className="w-5 h-5 ml-3 inline-block fill-current"
-														viewBox="0 0 24 24"
-													>
-														<path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zm-7-9h5v5h-5z" />
-													</svg>
-													{meeting}
-												</li>
-											))}
-										</ul>
-									)}
-								</div>
-
-								<div className="flex flex-col items-center">
+							<div className="flex flex-col items-start sm:flex-row sm:justify-between w-full">
+								<div className="flex flex-col">
 									<p className="text-sm text-white font-bold mb-2">הוסף תאריך מפגש</p>
 
-									{/* Left: Add Last Meeting Input with Stylish Calendar */}
-									<div className="flex items-center gap-2">
+									{/* Right: Add Last Meeting Input with Stylish Calendar */}
+									<div className="flex justify-center gap-2">
+										<div className="max-w-md">
+											<form className="space-y-8">
+												<input
+													value={lastMeeting}
+													id="lastMeetingDate"
+													type="date"
+													onClick={() => setIsDropDownOpen(false)}
+													onChange={(e) => setLastMeeting(e.target.value)}
+													className="px-4 py-2 bg-[#d0e7ff] text-black w-full text-md outline-[#007bff] rounded cursor-pointer"
+												/>
+											</form>
+										</div>
 										<button
 											type="button"
 											className="bg-gradient-to-l from-sky-500 via-blue-600 to-indigo-500 hover:brightness-110 active:brightness-110 w-10 h-10 cursor-pointer inline-flex items-center justify-center rounded-full border-none outline-none"
@@ -242,26 +231,61 @@ const ProjectItem = () => {
 												/>
 											</svg>
 										</button>
-
-										<div className="max-w-md">
-											<form className="space-y-8">
-												<div>
-													<input
-														value={lastMeeting}
-														id="lastMeetingDate"
-														type="date"
-														onChange={(e) => setLastMeeting(e.target.value)}
-														className="px-4 py-2 bg-[#d0e7ff] text-black w-full text-md outline-[#007bff] rounded cursor-pointer"
-													/>
-												</div>
-											</form>
-										</div>
 									</div>
+								</div>
+
+								{/* Left: Meetings History Dropdown */}
+								<div className="w-max mt-6">
+									<button
+										type="button"
+										id="dropdownToggle"
+										className={`px-6 py-3 rounded-sm text-black ${isDropDownOpen ? "bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-500 hover:brightness-110 active:brightness-110 text-white" : "bg-[#d0e7ff]"} text-sm font-medium border-0 outline-0 cursor-pointer hover:bg-gradient-to-r hover:from-sky-500 hover:via-blue-600 hover:to-indigo-500 active:brightness-110 hover:text-white active:bg-blue-600`}
+										onClick={toggleDropdown}
+									>
+										{sortedMeetings.length > 0 ? "היסטוריית מפגשים" : "אין היסטורית מפגשים"}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											className={`w-3 inline mr-3 transition-transform duration-300 ${
+												isDropDownOpen ? "rotate-180" : "rotate-0"
+											}`}
+											viewBox="0 0 24 24"
+										>
+											<path
+												fillRule="evenodd"
+												d="M11.99997 18.1669a2.38 2.38 0 0 1-1.68266-.69733l-9.52-9.52a2.38 2.38 0 1 1 3.36532-3.36532l7.83734 7.83734 7.83734-7.83734a2.38 2.38 0 1 1 3.36532 3.36532l-9.52 9.52a2.38 2.38 0 0 1-1.68266.69734z"
+												clipRule="evenodd"
+											/>
+										</svg>
+									</button>
+
+									{isDropDownOpen && sortedMeetings.length > 0 && (
+										<ul
+											id="dropdownMenu"
+											className="shadow-lg bg-white/80 py-2 z-[1000] min-w-full w-max rounded-sm max-h-96 overflow-auto"
+										>
+											{sortedMeetings.map((meeting) => (
+												<li
+													key={meeting._id}
+													className="dropdown-item flex items-center py-1 px-6 hover:bg-slate-100 text-blue-700 font-medium text-sm"
+												>
+													<svg
+														xmlns="http://www.w3.org/2000/svg"
+														className="w-5 h-5 ml-3 inline-block fill-current"
+														viewBox="0 0 24 24"
+													>
+														<path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zm-7-9h5v5h-5z" />
+													</svg>
+													{formatFunction(meeting.meetingDate)}
+												</li>
+											))}
+										</ul>
+									)}
 								</div>
 							</div>
 
 							{/* Actions above table */}
 							<div className="flex justify-between items-center mt-4">
+								{/* Add student */}
 								<button
 									onClick={addStudentHandler}
 									className="flex items-center gap-2 bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-500 hover:brightness-110 active:brightness-110 text-white px-4 py-2 rounded-xl transition cursor-pointer"
@@ -270,14 +294,15 @@ const ProjectItem = () => {
 									הוסף סטודנט
 								</button>
 
+								{/* Export to excel */}
 								<div className="relative group">
 									<FontAwesomeIcon
 										icon={faFileExcel}
 										onClick={onExportExcel}
-										className="text-green-400 text-3xl cursor-pointer hover:scale-110 active:scale-110 transition"
+										className="text-green-300 hover:text-green-400 text-3xl cursor-pointer hover:scale-110 active:scale-110 transition"
 									/>
 
-									{/* Tooltip */}
+									{/* Excel Tooltip - export to excel */}
 									<div
 										className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 
 											opacity-0 group-hover:opacity-100 transition duration-200

@@ -9,6 +9,9 @@ import SuccessModal from "../../ui/SuccessModal";
 import useApi from "../../../hooks/useHttpRequest";
 import Button from "../../reuse/Button";
 
+// TODO: ADD THE DROPDOWN TO SELECT THE WHATSAPP GROUP WHEN ADD IT TO WEBSITE(THE GROUP I OPENED FOR AUTOMATIC MESSAGE SENDING)
+// TODO: FOLLOW THE CHATGPT INSTRUCTIONS. I FINISHED THE WHATSAPP ROUTER, START HERE FROM STEP3-FRONTEND
+
 const AddProject = () => {
 	const [navigateTo, setNavigateTo] = useState("");
 	const [isCourseExist, setIsCourseExist] = useState(false);

@@ -2,11 +2,15 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 
+import cron from "node-cron";
+import {reminderCheck} from "./scheduler/dailyCheck.js"; // just imports the function
+
 import authRoute from "./routers/auth.js";
 import usersRoute from "./routers/usersRouter.js";
 import projectRoute from "./routers/projectsRouter.js";
 import studentRoute from "./routers/studentsRouter.js";
 import meetingRoute from "./routers/meetingsRouter.js";
+import whatsappRoute from "./routers/whatsappRouter.js";
 import mongoConnection from "./DBConnection/mongoConnection.js";
 import authenticationMiddleware from "./middleware/authentication.js";
 
@@ -25,11 +29,16 @@ app.use(
 
 mongoConnection();
 
+reminderCheck(); // first try
+setInterval(reminderCheck, 15000); // repeat every 15s
+
+
 app.use("/auth", authRoute);
 app.use("/users", authenticationMiddleware, usersRoute);
 app.use("/meetings", authenticationMiddleware, meetingRoute);
 app.use("/students", authenticationMiddleware, studentRoute);
 app.use("/projects", authenticationMiddleware, projectRoute);
+app.use("/whatsapp", authenticationMiddleware, whatsappRoute);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);

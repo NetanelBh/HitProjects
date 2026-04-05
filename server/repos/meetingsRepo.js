@@ -1,4 +1,4 @@
-import MeetingModel from "../models/Meeting.js";
+import MeetingModel from "../models/MeetingModel.js";
 
 export const addMeeting = (project, meetingDate) => {
     const meeting = MeetingModel({project, meetingDate});

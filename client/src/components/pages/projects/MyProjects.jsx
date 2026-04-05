@@ -116,7 +116,7 @@ const CoursesPage = () => {
 
 			{!isLoading && (
 				<>
-					{openModal && <DeleteModal onDelete={deleteProjectHandler} onCancel={closeModalHandler} />}
+					{openModal && <DeleteModal onDelete={deleteProjectHandler} onCancel={closeModalHandler} title="מחיקת פרוייקט" />}
 
 					{/* Search + Add */}
 					<div className="flex flex-col w-full sm:flex-row gap-4 mb-6 max-w-3xl items-stretch z-20">

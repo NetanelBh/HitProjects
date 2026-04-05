@@ -1,5 +1,9 @@
 import projectsModel from "../models/projectsModel.js";
 
+export const getAll = () => {
+    return projectsModel.find();
+};
+
 export const getProjectsByLecturerId = (lecturer) => {
     // Return all projects of specific lecturer, with students details
 	return projectsModel.find({ lecturer }).populate("students");
@@ -13,7 +17,7 @@ export const isStudentExistInProject = (projectId, studentId) => {
 };
 
 export const create = (name, startDate, endDate, semesters, lecturer) => {
-    const project = new projectsModel({ name, startDate, endDate, semesters, lecturer });
+    const project = new projectsModel({ name, startDate, endDate, semesters, lecturer, whatsappGroupId: "", reminderSent: false, lastMeetingDate: undefined });
     return project.save();
 };
 

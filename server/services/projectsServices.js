@@ -1,5 +1,9 @@
 import * as projectsRepo from '../repos/projectsRepo.js';
 
+export const getAll = () => {
+    return projectsRepo.getAll();
+}
+
 export const getProjectsByLecturerId = (lecturerId) => {
     return projectsRepo.getProjectsByLecturerId(lecturerId);
 };

@@ -14,6 +14,8 @@ router.get("/:projectId", async (req, res) => {
 			return res.send({ status: false, data: "אין הסטורית פגישות" });
 		}
 
+        
+
 		res.send({ status: true, data: meetings });
 	} catch (error) {
 		res.send({ status: false, data: error.message });
