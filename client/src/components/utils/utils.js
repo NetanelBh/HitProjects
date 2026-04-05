@@ -136,7 +136,7 @@ export const studentInputs = [
 		label: "טלפון",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all text-end",
 		inputName: "phone",
 		type: "tel",
 	},

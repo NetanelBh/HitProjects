@@ -12,7 +12,7 @@ import { studentInputs } from "../../utils/utils";
 const AddStudent = () => {
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState({ regularModal: false, successModal: false });
-	const [formValues, setFormValues] = useState({ fname: "", lname: "", phone: "", id: "" });
+	const [formValues, setFormValues] = useState({ fname: "r", lname: "r", phone: "2", id: "123456789" });
 
 	const { patch, isLoading, data } = useApi();
 
@@ -87,6 +87,7 @@ const AddStudent = () => {
 								{...input}
 								value={formValues[input.inputName]}
 								onChange={(type, value) => setFormValues((prev) => ({ ...prev, [type]: value }))}
+								defaultValue={input.defaultValue}
 							/>
 						))}
 

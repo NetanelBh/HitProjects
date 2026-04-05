@@ -1,6 +1,4 @@
 const Table = ({ headers, rows, onDelete, onEdit }) => {
-	console.log(headers);
-
 	return (
 		<div dir="rtl" className="overflow-x-auto bg-white backdrop-blur-md rounded-xl shadow-lg border-1 border-white">
 			<table className="min-w-full bg-white">
@@ -25,7 +23,7 @@ const Table = ({ headers, rows, onDelete, onEdit }) => {
 									<button
 										className="mr-3 cursor-pointer"
 										title="עריכה"
-										onClick={() => onEdit(row.studentId)}
+										onClick={() => onEdit(row)}
 									>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +40,7 @@ const Table = ({ headers, rows, onDelete, onEdit }) => {
 											/>
 										</svg>
 									</button>
-									<button title="מחיקה" className="cursor-pointer" onClick={() => onDelete(row.studentId)}>
+									<button title="מחיקה" className="cursor-pointer" onClick={() => onDelete(row._id)}>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											className="w-5 fill-red-500 hover:fill-red-700 active:fill-red-700"

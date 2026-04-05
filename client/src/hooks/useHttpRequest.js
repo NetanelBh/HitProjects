@@ -41,7 +41,7 @@ const useApi = () => {
   const post = (url, body) => fetchFunction({ url, method: "POST", body });
   const patch = (url, body) => fetchFunction({ url, method: "PATCH", body });
   const del = (url) => fetchFunction({ url, method: "DELETE" });
-
+  
   return { isLoading, data, error, get, post, patch, del };
 };
 

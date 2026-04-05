@@ -56,39 +56,58 @@ router.patch("/add-student/:projectId", async (req, res) => {
 	const { projectId } = req.params;
 	const studentData = req.body;
 
-	try {
-		// Check if the student created already
-		let student = await getStudentById(studentData.studentId);
+	// Check if the student created already
+	let student = await getStudentById(studentData.studentId);
+	// If not, create it
+	if (!student) {
+		try {
+			student = await create(
+				studentData.firstName,
+				studentData.lastName,
+				studentData.phone,
+				studentData.studentId,
+			);
 
-		// If not, create it
-		if (!student) {
-			try {
-				const {student, isNew} = await create(
-					studentData.firstName,
-					studentData.lastName,
-					studentData.phone,
-					studentData.studentId,
-				);
-				if (student && !isNew) {
-					return res.send({ status: false, data: "סטודנט קיים בפרוייקט הנוכחי" });
-				} else if (!student && !isNew) {
-					return res.send({ status: false, data: "יצירת הסטודנט נכשלה" });
-				} else {
-					// Add the student to the project
-					const updatedProject = await projectsServices.addStudent(projectId, student._id);
-
-					// If can't add the student to project, remove the student from DB.
-					if (!updatedProject) {
-						await studentsServices.remove(student._id);
-						return res.send({ status: false, data: "הוספת הסטודנט לפרוייקט נכשלה" });
-					}
-
-					res.send({ status: true, data: updatedProject });
-				}
-			} catch (error) {
-				return res.send({ status: false, data: error.message });
-			}
+			// Insert the student to the project
+			const updatedProject = await projectsServices.addStudent(projectId, student._id).populate("students");
+			res.send({ status: true, data: updatedProject });
+		} catch (error) {
+			res.send({ status: false, data: error.message });
 		}
+	}
+	// If the student already exists in DB, will check the specific project
+	else {
+		try {
+			const isStudentExistInProject = await projectsServices.isStudentExistInProject(projectId, student._id);
+			// If the student is in the project already.
+			if (isStudentExistInProject) {
+				return res.send({ status: false, data: "הסטודנט כבר רשום לפרוייקט הנוכחי" });
+			}
+
+			try {
+				// Insert the student to the project
+				const updatedProject = await projectsServices.addStudent(projectId, student._id).populate("students");
+				res.send({ status: true, data: updatedProject });
+			} catch (error) {
+				res.send({ status: false, data: error.message });
+			}
+		} catch (error) {
+			res.send({ status: false, data: error.message });
+		}
+	}
+});
+
+router.patch("/remove-student/:projectId", async (req, res) => {
+	const { projectId } = req.params;
+	const { studentId } = req.body;
+	
+	try {
+		const updatedProject = await projectsServices.removeStudent(projectId, studentId).populate("students");
+		if (!updatedProject) {
+			return res.send({ status: false, data: "מחיקת הסטודנט מהפרוייקט נכשלה" });
+		}
+
+		res.send({ status: true, data: updatedProject });
 	} catch (error) {
 		res.send({ status: false, data: error.message });
 	}
@@ -98,7 +117,7 @@ router.delete("/delete/:projectId", async (req, res) => {
 	try {
 		const { projectId } = req.params;
 
-		const deletedProject = await projectsServices.remove(projectId);
+		const deletedProject = await projectsServices.removeProject(projectId);
 		if (!deletedProject) {
 			return res.send({ status: false, data: "Project deletion failed" });
 		}

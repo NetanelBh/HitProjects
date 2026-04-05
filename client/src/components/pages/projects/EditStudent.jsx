@@ -6,18 +6,17 @@ import Loading from "../../ui/Loading";
 import SuccessModal from "../../ui/SuccessModal";
 
 import useApi from "../../../hooks/useHttpRequest";
-import { inputs } from "../../utils/utils";
+import { studentInputs } from "../../utils/utils";
 
-const EditProfile = () => {
-	const user = JSON.parse(localStorage.getItem("user"));
-	
-  const [openModal, setOpenModal] = useState({ regularModal: false, successModal: false });
-	const [isPasswordMatch, setIsPasswordMatch] = useState(true);
+const EditStudent = () => {
+	const student = JSON.parse(localStorage.getItem("student"));
+
+	const [openModal, setOpenModal] = useState({ regularModal: false, successModal: false });
 	const [formValues, setFormValues] = useState({
-		fname: user.firstName || "",
-		lname: user.lastName || "",
-		password: "",
-		confirm: "",
+		fname: student.firstName || "",
+		lname: student.lastName || "",
+		phone: student.phone || "",
+		id: student.studentId || "",
 	});
 
 	const { isLoading, patch, data } = useApi();
@@ -25,28 +24,25 @@ const EditProfile = () => {
 	const updateHandler = async (e) => {
 		e.preventDefault();
 
-		setIsPasswordMatch(true);
-
-		const updatedUser = {};
+		const updatedStudent = {};
 
 		// If the user update some personal data
-		if (formValues.fname !== user.firstName) {
-			updatedUser.firstName = formValues.fname;
+		if (formValues.fname !== student.firstName) {
+			updatedStudent.firstName = formValues.fname;
 		}
-		if (formValues.lname !== user.lastName) {
-			updatedUser.lastName = formValues.lname;
+		if (formValues.lname !== student.lastName) {
+			updatedStudent.lastName = formValues.lname;
 		}
-		// If the user entered a new password, check if equals
-		if (formValues.password !== "" && formValues.password === formValues.confirm) {
-			updatedUser.password = formValues.password;
-		} else if (formValues.password !== "" && formValues.password !== formValues.confirm) {
-			setIsPasswordMatch(false);
-			return;
+		if (formValues.phone !== student.phone) {
+			updatedStudent.phone = formValues.phone;
+		}
+		if (formValues.id !== student.studentId) {
+			updatedStudent.studentId = formValues.id;
 		}
 
 		try {
 			setOpenModal(true);
-			const resp = await patch("/users/update", updatedUser);
+			const resp = await patch(`/students/update/${student._id}`, updatedStudent);
 			if (resp.status) {
 				setOpenModal({ regularModal: false, successModal: true });
 			} else {
@@ -59,25 +55,8 @@ const EditProfile = () => {
 
 	const closeModalHandler = () => {
 		setOpenModal({ regularModal: false, successModal: false });
-		setFormValues({ fname: "", lname: "", password: "", confirm: "" });
-		setIsPasswordMatch(true);
+		setFormValues({ fname: "", lname: "", phone: "", id: "" });
 	};
-
-	// Return only the objects that the user can edit(I don't need email)
-	const allowedInputs = new Set(["fname", "lname", "password", "confirm"]);
-	const filteredInputs = inputs
-		.filter((input) => allowedInputs.has(input.inputName))
-		.map((filterdInput) => {
-			if (filterdInput.inputName === "password") {
-				return { ...filterdInput, label: "סיסמה חדשה" };
-			}
-
-			if (filterdInput.inputName === "confirm") {
-				return { ...filterdInput, label: "אימות סיסמה" };
-			}
-
-			return filterdInput;
-		});
 
 	return (
 		<main className="relative w-full min-h-screen overflow-hidden">
@@ -109,21 +88,20 @@ const EditProfile = () => {
 					<h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">עדכון פרטים</h1>
 
 					<form onSubmit={updateHandler} className="w-full flex flex-col gap-4">
-						{filteredInputs.map((input) => (
+						{studentInputs.map((input) => (
 							<Input
 								key={input.inputName}
 								{...input}
 								value={formValues[input.inputName]}
 								onChange={(type, value) => setFormValues((prev) => ({ ...prev, [type]: value }))}
-								isPasswordMatch={isPasswordMatch}
 							/>
 						))}
 
 						{/* The update button valid only if the user entered some data */}
-						{(formValues.fname !== user.firstName ||
-							formValues.lname !== user.lastName ||
-							formValues.password !== "" ||
-							formValues.confirm !== "") && (
+						{(formValues.fname !== student.firstName ||
+							formValues.lname !== student.lastName ||
+							formValues.phone !== student.phone ||
+							formValues.id !== student.studentId) && (
 							<button
 								type="submit"
 								className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm"
@@ -138,4 +116,4 @@ const EditProfile = () => {
 	);
 };
 
-export default EditProfile;
+export default EditStudent;

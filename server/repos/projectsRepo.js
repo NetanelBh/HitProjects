@@ -5,6 +5,13 @@ export const getProjectsByLecturerId = (lecturer) => {
 	return projectsModel.find({ lecturer }).populate("students");
 };
 
+export const isStudentExistInProject = (projectId, studentId) => {
+    return projectsModel.exists({
+        _id: projectId,
+        students: studentId,
+    });
+};
+
 export const create = (name, startDate, endDate, semesters, lecturer) => {
     const project = new projectsModel({ name, startDate, endDate, semesters, lecturer });
     return project.save();
@@ -15,7 +22,7 @@ export const update = (projectId, newData) => {
     return projectsModel.findByIdAndUpdate(projectId, newData, { returnDocument: "after" });
 };
 
-export const remove = (projectId) => {
+export const removeProject = (projectId) => {
     return projectsModel.findByIdAndDelete(projectId);
 };
 

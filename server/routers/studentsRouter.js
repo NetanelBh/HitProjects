@@ -7,10 +7,10 @@ import * as studendsServices from "../services/studentsServices.js";
 const router = express.Router();
 
 router.patch("/update/:studentId", async (req, res) => {
-    const { studentId } = req.params;
-    const { firstName, lastName, phone } = req.body;
+    const { id } = req.params;
+    const { firstName, lastName, phone, studentId } = req.body;
     try {
-        const student = await studendsServices.update(studentId, firstName, lastName, phone);
+        const student = await studendsServices.update(id, firstName, lastName, phone, studentId);
         if (!student) {
             return res.send({status: false, data: "Student update failed"});
         }
