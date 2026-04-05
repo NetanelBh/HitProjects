@@ -9,11 +9,13 @@ const meetingSchema = new Schema({
 	},
 
 	// 📅 Scheduling
-	date: {
+	meetingDate: {
 		type: Date,
 		required: true,
 		index: true,
 	},
 });
 
-const Meeting = mongoose.model("Meeting", meetingSchema);
+const Meeting = model("Meeting", meetingSchema);
+
+export default Meeting;

@@ -6,6 +6,7 @@ import Loading from "../../ui/Loading";
 import SuccessModal from "../../ui/SuccessModal";
 import useApi from "../../../hooks/useHttpRequest";
 import { inputs, checkMailValitidy } from "../../utils/utils";
+import Button from "../../reuse/Button";
 
 const Register = () => {
 	const { isLoading, post } = useApi();
@@ -112,12 +113,7 @@ const Register = () => {
 								/>
 							))}
 
-							<button
-								type="submit"
-								className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm"
-							>
-								הירשם
-							</button>
+							<Button text="הרשמה" type="submit" className="shadow-sm" />
 						</form>
 
 						<div className="mt-4 text-center">

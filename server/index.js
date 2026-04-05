@@ -6,6 +6,7 @@ import authRoute from "./routers/auth.js";
 import usersRoute from "./routers/usersRouter.js";
 import projectRoute from "./routers/projectsRouter.js";
 import studentRoute from "./routers/studentsRouter.js";
+import meetingRoute from "./routers/meetingsRouter.js";
 import mongoConnection from "./DBConnection/mongoConnection.js";
 import authenticationMiddleware from "./middleware/authentication.js";
 
@@ -26,6 +27,7 @@ mongoConnection();
 
 app.use("/auth", authRoute);
 app.use("/users", authenticationMiddleware, usersRoute);
+app.use("/meetings", authenticationMiddleware, meetingRoute);
 app.use("/students", authenticationMiddleware, studentRoute);
 app.use("/projects", authenticationMiddleware, projectRoute);
 

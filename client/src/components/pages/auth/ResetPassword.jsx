@@ -7,6 +7,7 @@ import Loading from "../../ui/Loading";
 import { inputs } from "../../utils/utils";
 import SuccessModal from "../../ui/SuccessModal";
 import useApi from "../../../hooks/useHttpRequest";
+import Button from "../../reuse/Button";
 
 const ResetPassword = () => {
 	const { token } = useParams();
@@ -37,21 +38,21 @@ const ResetPassword = () => {
 		// Send the new password to server and replace the old one
 		try {
 			const resp = await post(`/auth/reset-password/${token}`, { newPassword: formValues.password });
-      console.log(resp);
-      
-      if(resp.status) {
-        setOpenModal({regularModal: false, successModal: true});
-      } else {
-        setOpenModal({regularModal: true, successModal: false});
-      }
+			console.log(resp);
+
+			if (resp.status) {
+				setOpenModal({ regularModal: false, successModal: true });
+			} else {
+				setOpenModal({ regularModal: true, successModal: false });
+			}
 		} catch (error) {
-			setOpenModal({regularModal: true, successModal: false});
+			setOpenModal({ regularModal: true, successModal: false });
 			console.log(error.message);
 		}
 	};
 
 	const closeModalHandler = () => {
-		setOpenModal({regularModal: false, successModal: false});
+		setOpenModal({ regularModal: false, successModal: false });
 		setFormValues({ password: "", confirm: "" });
 		setIsPasswordMatch(true);
 	};
@@ -60,7 +61,13 @@ const ResetPassword = () => {
 		<>
 			{isLoading && <Loading />}
 
-			{error && openModal.regularModal && <Modal title="איפוס סיסמה" text={data !== 'jwt expired' ? data : "פג תוקף הלינק, לחץ שוב על 'שכחתי סיסמא'"} onConfirm={closeModalHandler} />}
+			{error && openModal.regularModal && (
+				<Modal
+					title="איפוס סיסמה"
+					text={data !== "jwt expired" ? data : "פג תוקף הלינק, לחץ שוב על 'שכחתי סיסמא'"}
+					onConfirm={closeModalHandler}
+				/>
+			)}
 
 			<>
 				{openModal.successModal && !error && (
@@ -86,12 +93,8 @@ const ResetPassword = () => {
 									/>
 								))}
 
-								<button
-									type="submit"
-									className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-								>
-									איפוס סיסמה
-								</button>
+								{/* Reset password */}
+								<Button text="איפוס סיסמה" type="submit" />
 							</form>
 						</div>
 					</div>

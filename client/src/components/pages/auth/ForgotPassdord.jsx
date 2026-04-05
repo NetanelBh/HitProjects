@@ -6,6 +6,7 @@ import Input from "../../reuse/Input";
 import Loading from "../../ui/Loading";
 import useApi from "../../../hooks/useHttpRequest";
 import { checkMailValitidy } from "../../utils/utils";
+import Button from "../../reuse/Button";
 
 const ForgotPassword = () => {
 	const [formValues, setFormValues] = useState({ mail: "", isValidMail: true });
@@ -94,12 +95,7 @@ const ForgotPassword = () => {
 								isValidEmail={formValues.isValidMail}
 							/>
 
-							<button
-								type="submit"
-								className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer"
-							>
-								שלח
-							</button>
+							<Button text="שלח" type="submit" className="w-full" />
 						</form>
 					</div>
 				</div>

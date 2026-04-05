@@ -7,6 +7,7 @@ import Loading from "../../ui/Loading";
 import { courseInputs } from "../../utils/utils";
 import SuccessModal from "../../ui/SuccessModal";
 import useApi from "../../../hooks/useHttpRequest";
+import Button from "../../reuse/Button";
 
 const AddProject = () => {
 	const [navigateTo, setNavigateTo] = useState("");
@@ -111,21 +112,20 @@ const AddProject = () => {
 							/>
 						))}
 
-						<button
+						{/* Add project button */}
+						<Button
+							text="הוסף פרוייקט"
 							type="submit"
-							className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm"
-						>
-							הוסף קורס
-						</button>
+							className="font-medium py-2 px-4 rounded-md shadow-sm"
+						/>
 
 						{/* Cancel */}
-						<button
+						<Button
+							text="ביטול"
 							type="button"
 							onClick={cancelHandler}
-							className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm w-fit self-center"
-						>
-							ביטול
-						</button>
+							className="font-medium py-2 px-4 rounded-md shadow-sm w-fit self-center"
+						/>
 					</form>
 				</div>
 			</div>

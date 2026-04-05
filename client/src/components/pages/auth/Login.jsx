@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import useApi from "../../../hooks/useHttpRequest";
 import Loading from "../../ui/Loading";
+import Button from "../../reuse/Button";
+import useApi from "../../../hooks/useHttpRequest";
 
 const Login = () => {
 	const { isLoading, post } = useApi();
@@ -39,7 +40,7 @@ const Login = () => {
 			const response = await post("/auth/login", {
 				email,
 				password,
-			});	
+			});
 
 			if (response.data === "אימייל לא תקין") {
 				setIsVerifiedEmail(false);
@@ -68,7 +69,7 @@ const Login = () => {
 	return (
 		<main className="relative w-full min-h-screen overflow-hidden">
 			<div className="background_move absolute top-0 left-0 w-full h-full" />
-			
+
 			<div dir="rtl" className="relative z-10 min-h-screen flex flex-col items-center mt-12 p-4">
 				{isLoading && <Loading />}
 
@@ -78,7 +79,10 @@ const Login = () => {
 							<h1 className=" mb-12 text-slate-900 text-3xl font-bold text-center">כניסה</h1>
 
 							<div>
-								<label className="text-slate-900 text-sm md:text-base font-medium block mb-2" htmlFor="email">
+								<label
+									className="text-slate-900 text-sm md:text-base font-medium block mb-2"
+									htmlFor="email"
+								>
 									אימייל
 								</label>
 								<div className="relative flex items-center">
@@ -123,7 +127,10 @@ const Login = () => {
 								</div>
 							</div>
 							<div className="mt-8">
-								<label className="text-slate-900 text-sm md:text-base font-medium block mb-2" htmlFor="password">
+								<label
+									className="text-slate-900 text-sm md:text-base font-medium block mb-2"
+									htmlFor="password"
+								>
 									סיסמה
 								</label>
 								<div className="relative flex items-center">
@@ -163,13 +170,12 @@ const Login = () => {
 								</NavLink>
 							</div>
 
-							<div className="mt-12">
-								<button
+							<div className="mt-4">
+								<Button
+									text="כניסה"
 									type="submit"
-									className="w-full shadow-xl py-2.5 px-4 text-sm font-medium tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none cursor-pointer"
-								>
-									כניסה
-								</button>
+									className="w-full shadow-xl py-2.5 px-2 text-sm font-medium tracking-wide"
+								/>
 							</div>
 
 							<div className="flex mt-6 justify-center">

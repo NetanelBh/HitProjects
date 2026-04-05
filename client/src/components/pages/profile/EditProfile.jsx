@@ -7,11 +7,12 @@ import SuccessModal from "../../ui/SuccessModal";
 
 import useApi from "../../../hooks/useHttpRequest";
 import { inputs } from "../../utils/utils";
+import Button from "../../reuse/Button";
 
 const EditProfile = () => {
 	const user = JSON.parse(localStorage.getItem("user"));
-	
-  const [openModal, setOpenModal] = useState({ regularModal: false, successModal: false });
+
+	const [openModal, setOpenModal] = useState({ regularModal: false, successModal: false });
 	const [isPasswordMatch, setIsPasswordMatch] = useState(true);
 	const [formValues, setFormValues] = useState({
 		fname: user.firstName || "",
@@ -124,12 +125,7 @@ const EditProfile = () => {
 							formValues.lname !== user.lastName ||
 							formValues.password !== "" ||
 							formValues.confirm !== "") && (
-							<button
-								type="submit"
-								className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm"
-							>
-								עדכון
-							</button>
+							<Button text="עדכון" type="submit" className="font-medium py-2 px-4 rounded-md shadow-sm" />
 						)}
 					</form>
 				</div>

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Input from "../../reuse/Input";
 import Modal from "../../ui/Modal";
+import Input from "../../reuse/Input";
 import Loading from "../../ui/Loading";
+import Button from "../../reuse/Button";
 import SuccessModal from "../../ui/SuccessModal";
 import useApi from "../../../hooks/useHttpRequest";
 
@@ -12,7 +13,7 @@ import { studentInputs } from "../../utils/utils";
 const AddStudent = () => {
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState({ regularModal: false, successModal: false });
-	const [formValues, setFormValues] = useState({ fname: "r", lname: "r", phone: "2", id: "123456789" });
+	const [formValues, setFormValues] = useState({ fname: "", lname: "", phone: "", id: "" });
 
 	const { patch, isLoading, data } = useApi();
 
@@ -91,21 +92,11 @@ const AddStudent = () => {
 							/>
 						))}
 
-						<button
-							type="submit"
-							className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm"
-						>
-							הוסף סטודנט
-						</button>
+						{/* Add student */}
+						<Button text="הוסף סטודנט" type="submit" />
 
 						{/* Cancel */}
-						<button
-							type="button"
-							onClick={cancelHandler}
-							className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm w-fit self-center"
-						>
-							ביטול
-						</button>
+						<Button text="ביטול" type="button" onClick={cancelHandler} className="w-fit self-center" />
 					</form>
 				</div>
 			</div>

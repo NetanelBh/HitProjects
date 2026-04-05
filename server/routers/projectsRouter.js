@@ -2,6 +2,7 @@ import express from "express";
 
 import * as projectsServices from "../services/projectsServices.js";
 import { create, getStudentById } from "../services/studentsServices.js";
+import { addMeeting } from "../services/meetingsServices.js";
 
 const router = express.Router();
 
@@ -100,7 +101,7 @@ router.patch("/add-student/:projectId", async (req, res) => {
 router.patch("/remove-student/:projectId", async (req, res) => {
 	const { projectId } = req.params;
 	const { studentId } = req.body;
-	
+
 	try {
 		const updatedProject = await projectsServices.removeStudent(projectId, studentId).populate("students");
 		if (!updatedProject) {
@@ -128,14 +129,14 @@ router.delete("/delete/:projectId", async (req, res) => {
 	}
 });
 
-router.post("/projects/:projectId/update-meeting", async (req, res) => {
+router.post("/add-meeting/:projectId", async (req, res) => {
 	try {
 		const { projectId } = req.params;
 		const { lastMeeting } = req.body;
 
-		const updatedProject = await projectsServices.updateLastMeeting(projectId, lastMeeting);
+		const updatedProject = await addMeeting(projectId, lastMeeting);
 		if (!updatedProject) {
-			return res.send({ status: false, data: "Update last meeting failed" });
+			return res.send({ status: false, data: "הוספת השיחה נכשלה, אנא נסה שנית" });
 		}
 
 		res.send({ status: true, data: updatedProject });

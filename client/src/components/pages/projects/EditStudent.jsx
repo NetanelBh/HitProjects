@@ -7,6 +7,7 @@ import SuccessModal from "../../ui/SuccessModal";
 
 import useApi from "../../../hooks/useHttpRequest";
 import { studentInputs } from "../../utils/utils";
+import Button from "../../reuse/Button";
 
 const EditStudent = () => {
 	const student = JSON.parse(localStorage.getItem("student"));
@@ -102,12 +103,7 @@ const EditStudent = () => {
 							formValues.lname !== student.lastName ||
 							formValues.phone !== student.phone ||
 							formValues.id !== student.studentId) && (
-							<button
-								type="submit"
-								className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm"
-							>
-								עדכון
-							</button>
+							<Button text="עדכון" type="submit" className="font-medium py-2 px-4 rounded-md shadow-sm" />
 						)}
 					</form>
 				</div>

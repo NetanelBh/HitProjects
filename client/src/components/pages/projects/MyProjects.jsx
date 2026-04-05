@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import ProjectCard from "./ProjectCard";
 import Loading from "../../ui/Loading";
+import ProjectCard from "./ProjectCard";
+import Button from "../../reuse/Button";
 import DeleteModal from "../../ui/DeleteModal";
 import useApi from "../../../hooks/useHttpRequest";
 
@@ -125,15 +126,14 @@ const CoursesPage = () => {
 							placeholder="חיפוש לפי סמסטר/שנה/שם פרוייקט"
 							value={search}
 							onChange={(e) => setSearch(e.target.value)}
-							className="flex-1 p-3 rounded-xl border-2 border-blue-600 bg-gray-500 text-md text-white text-right focus:outline-none focus:ring-2 focus:ring-indigo-500"
+							className="flex-1 p-2 rounded-xl border-2 border-blue-600 bg-gray-500 text-md text-white text-right focus:outline-none focus:ring-2 focus:ring-indigo-500"
 						/>
 						{type === "active" && (
-							<button
+							<Button
+								text="הוסף פרוייקט"
+								type="button"
 								onClick={() => navigate("/dashboard/projects/add-project")}
-								className="bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition"
-							>
-								הוסף פרוייקט
-							</button>
+							/>
 						)}
 					</div>
 
