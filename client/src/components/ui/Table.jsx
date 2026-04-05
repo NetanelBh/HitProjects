@@ -5,7 +5,7 @@ const Table = ({ headers, rows, onDelete, onEdit }) => {
 				<thead className="bg-gray-700/90 whitespace-nowrap">
 					<tr>
 						{headers.map((header) => (
-							<th key={header} className="p-4 text-right text-sm font-medium text-white">
+							<th key={header} className="p-4 text-center text-sm font-medium text-white">
 								{header}
 							</th>
 						))}
@@ -15,11 +15,11 @@ const Table = ({ headers, rows, onDelete, onEdit }) => {
 				<tbody className="whitespace-nowrap">
 					{rows.map((row) => (
 						<tr key={row.studentId} className="even:bg-blue-50">
-							<td className="p-4 text-sm text-slate-900 font-medium">{`${row.firstName} ${row.lastName}`}</td>
-							<td className="p-4 text-sm text-slate-600 font-medium">{row.studentId}</td>
-							<td className="p-4 text-sm text-slate-600 font-medium">{row.phone}</td>
+							<td className="p-4 text-sm text-slate-900 font-medium text-center">{`${row.firstName} ${row.lastName}`}</td>
+							<td className="p-4 text-sm text-slate-600 font-medium text-center">{row.studentId}</td>
+							<td className="p-4 text-sm text-slate-600 font-medium text-center">{row.phone}</td>
 							<td className="p-4">
-								<div className="flex items-center gap-2">
+								<div className="flex items-center gap-2 justify-center">
 									<button
 										className="mr-3 cursor-pointer"
 										title="עריכה"
