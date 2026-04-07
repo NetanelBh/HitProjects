@@ -1,31 +1,45 @@
-import client from "../whatsapp/client.js";
+import mongoose from "mongoose";
 import Project from "../models/projectsModel.js";
-
-export const runReminders = async () => {
-	const projectsToRemind = await Project.find({
-		reminderSent: false,
-		lastMeetingDate: { $lte: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000) },
-	});
-
-	if (!projectsToRemind.length) {
-		console.log("No reminders to send ✅");
-		return;
-	}
-
-	const chats = await client.getChats();
-	for (const project of projectsToRemind) {
-		const chat = chats.find((c) => c.id._serialized === project.whatsappGroupId?.trim());
-		if (!chat) continue;
-		await chat.sendMessage("Reminder: 21 days since last meeting!");
-		project.reminderSent = true;
-		await project.save();
-	}
-};
+import sendEmail from "../utils/sendEmailConfig.js";
+import reminderEmailTemplate from "../utils/reminderEmailTemplate.js";
+import "dotenv/config";
 
 export const reminderCheck = async () => {
-	if (!client.info?.me) {
-		console.log("Waiting for WhatsApp client to be ready...");
-		return; // skip this run, next interval will try again
+	try {
+		const projectsToRemind = await Project.find({
+			reminderSent: false,
+			lastMeetingDate: {
+				$lte: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000),
+			},
+		});
+
+		if (!projectsToRemind.length) {
+			console.log("No reminders to send ✅");
+			return;
+		}
+
+		for (const project of projectsToRemind) {
+			try {
+				const html = reminderEmailTemplate(
+					project.name,
+					project.lastMeetingDate
+				);
+
+				await sendEmail(
+					process.env.MY_EMAIL, // send to yourself
+					`Reminder: ${project.name}`,
+					html
+				);
+
+				project.reminderSent = true;
+				await project.save();
+
+				console.log(`📧 Reminder sent for "${project.name}"`);
+			} catch (err) {
+				console.error(`❌ Failed for "${project.name}":`, err.message);
+			}
+		}
+	} catch (err) {
+		console.error("Reminder system error:", err.message);
 	}
-	await runReminders();
 };

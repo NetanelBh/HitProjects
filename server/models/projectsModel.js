@@ -29,10 +29,6 @@ const projectSchema = new Schema(
 				ref: "Student",
 			},
 		],
-		// 🔥 REQUIRED for WhatsApp
-		whatsappGroupId: {
-			type: String,
-		},
 
 		// 🧠 Core logic
 		lastMeetingDate: {type: Date},
