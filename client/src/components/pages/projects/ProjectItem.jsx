@@ -27,7 +27,7 @@ const ProjectItem = () => {
 
 	const progress = calculateProgress(project.startDate, project.endDate);
 
-	const { get, patch, post, isLoading, data } = useApi();
+	const { get, patch, post, isLoading } = useApi();
 
 	useEffect(() => {
 		let start = 0;
@@ -81,7 +81,7 @@ const ProjectItem = () => {
 	};
 
 	const editStudentHandler = (student) => {
-		setModal({ type: "remove", isOpen: true, title: "מחיקת סטודנט מפרוייקט", text: "האם אתה בטוח?" });
+		navigate("projects/edit-student");
 	};
 
 	const deleteStudentHandler = (studentId) => {
