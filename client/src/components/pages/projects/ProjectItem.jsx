@@ -81,6 +81,7 @@ const ProjectItem = () => {
 	};
 
 	const editStudentHandler = (student) => {
+		localStorage.setItem("student", JSON.stringify(student));
 		navigate("/dashboard/projects/edit-student");
 	};
 
