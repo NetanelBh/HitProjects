@@ -81,7 +81,7 @@ const ProjectItem = () => {
 	};
 
 	const editStudentHandler = (student) => {
-		navigate("projects/edit-student");
+		navigate("/dashboard/projects/edit-student");
 	};
 
 	const deleteStudentHandler = (studentId) => {
