@@ -10,7 +10,7 @@ export const create = (firstName, lastName, phone, studentId) => {
 
 export const update = (id, firstName, lastName, phone, studentId) => {
 	const studentData = { firstName, lastName, phone, studentId };
-	return studentsRepo.update(studentId, studentData);
+	return studentsRepo.update(id, studentData);
 };
 
 export const remove = (studentId) => {

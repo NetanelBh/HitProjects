@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Modal from "../../ui/Modal";
 import Input from "../../reuse/Input";
@@ -10,8 +11,11 @@ import { studentInputs } from "../../utils/utils";
 import Button from "../../reuse/Button";
 
 const EditStudent = () => {
+	const navigate = useNavigate();
 	const student = JSON.parse(localStorage.getItem("student"));
 
+	// After the update, save the updated student for sending to project item
+	const [updatedStudent, setUpdatedStudent] = useState({refresh: false, updates: {}});
 	const [openModal, setOpenModal] = useState({ regularModal: false, successModal: false });
 	const [formValues, setFormValues] = useState({
 		fname: student.firstName || "",
@@ -24,6 +28,8 @@ const EditStudent = () => {
 
 	const updateHandler = async (e) => {
 		e.preventDefault();
+
+		setUpdatedStudent({refresh: false, updates: {}, studentId: student._id});
 
 		const updatedStudent = {};
 
@@ -42,10 +48,10 @@ const EditStudent = () => {
 		}
 
 		try {
-			setOpenModal(true);
 			const resp = await patch(`/students/update/${student._id}`, updatedStudent);
 			if (resp.status) {
 				setOpenModal({ regularModal: false, successModal: true });
+				setUpdatedStudent({refresh: true, updates: resp.data});
 			} else {
 				setOpenModal({ regularModal: true, successModal: false });
 			}
@@ -57,6 +63,7 @@ const EditStudent = () => {
 	const closeModalHandler = () => {
 		setOpenModal({ regularModal: false, successModal: false });
 		setFormValues({ fname: "", lname: "", phone: "", id: "" });
+		navigate("/dashboard/projects/item", {state: updatedStudent});
 	};
 
 	return (
@@ -72,12 +79,12 @@ const EditStudent = () => {
 			)}
 
 			{/* 🔵 Modal */}
-			{openModal.regularModal && <Modal title="עדכון פרופיל" text={data} onConfirm={closeModalHandler} />}
+			{openModal.regularModal && <Modal title="עדכון פרטי סטודנט" text={data} onConfirm={closeModalHandler} />}
 
 			{/* 🔵 Success Modal */}
 			{openModal.successModal && (
 				<div className="relative z-40">
-					<SuccessModal onClick={closeModalHandler} title="עדכון פרופיל" message="הפרופיל עודכן בהצלחה" />
+					<SuccessModal onClick={closeModalHandler} title="עדכון פרופיל" message="פרטי הסטודנט עודכנו בהצלחה" />
 				</div>
 			)}
 

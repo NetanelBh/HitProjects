@@ -6,7 +6,7 @@ import * as studendsServices from "../services/studentsServices.js";
 
 const router = express.Router();
 
-router.patch("/update/:studentId", async (req, res) => {
+router.patch("/update/:id", async (req, res) => {
     const { id } = req.params;
     const { firstName, lastName, phone, studentId } = req.body;
     try {

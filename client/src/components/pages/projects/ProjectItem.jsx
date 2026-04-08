@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus, faFileExcel } from "@fortawesome/free-solid-svg-icons";
 
@@ -71,6 +71,22 @@ const ProjectItem = () => {
 
 		fetchMeetings();
 	}, [project._id]); // runs once when projectId is set
+
+	// Store the data from EditStudent comp(if updated the student data I want to update the list)
+	const location = useLocation();
+	useEffect(() => {
+		// 1. Check if the refresh flag and the updated data exist in state
+		if (location.state?.refresh && location.state?.updates) {
+			const { updates } = location.state;
+			
+			setStudents((prevStudents) =>
+				prevStudents.map((student) =>
+					// Using the ID from the passed object to find the match
+					student._id === updates._id ? { ...student, ...updates } : student,
+				),
+			);
+		}
+	}, [location.state]);
 
 	const startYear = new Date(project.startDate).getFullYear();
 	const endYear = new Date(project.endDate).getFullYear();
