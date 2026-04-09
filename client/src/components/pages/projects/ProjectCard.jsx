@@ -49,20 +49,20 @@ const ProjectCard = ({ type, project, onDelete, onClick }) => {
 					<FontAwesomeIcon
 						icon={faTrash}
 						onClick={() => onDelete(project._id)}
-						className="absolute top-6 left-4 bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition z-10"
+						className="absolute top-6 left-2 sm:left-4 bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition z-10"
 					/>
 
 					{/* Edit Button */}
 					<FontAwesomeIcon
 						icon={faPenToSquare}
-						className="absolute top-6 left-16 bg-gray-400 text-white p-2 rounded-full hover:bg-gray-500 transition z-10"
+						className="absolute top-6 left-12 sm:left-16 bg-gray-400 text-white p-2 rounded-full hover:bg-gray-500 transition z-10"
 						onClick={onClick}
 					/>
 				</div>
 			)}
 
 			{/* project Name */}
-			<h2 className="text-2xl font-bold text-white mb-2">{project.name}</h2>
+			<h2 className="text-lg sm:text-2xl font-bold text-white mb-2">{project.name}</h2>
 
 			{/* Semester + Year */}
 			<p className="text-sm text-white mb-4">

@@ -230,9 +230,10 @@ const ProjectItem = () => {
 												/>
 											</form>
 										</div>
+
 										<button
 											type="button"
-											className="bg-gradient-to-l from-sky-500 via-blue-600 to-indigo-500 hover:brightness-110 active:brightness-110 w-10 h-10 cursor-pointer inline-flex items-center justify-center rounded-full border-none outline-none"
+											className="mr-2 bg-gradient-to-l from-sky-500 via-blue-600 to-indigo-500 hover:brightness-110 active:brightness-110 w-10 h-10 cursor-pointer inline-flex items-center justify-center rounded-full border-none outline-none"
 											onClick={addMeetingHandler}
 										>
 											<svg
