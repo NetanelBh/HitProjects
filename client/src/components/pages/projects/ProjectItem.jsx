@@ -268,7 +268,30 @@ const ProjectItem = () => {
 											/>
 										</svg>
 									</button>
+									
 									{/* Dropdown list logic remains the same... */}
+									{isDropDownOpen && sortedMeetings.length > 0 && (
+										<ul
+											id="dropdownMenu"
+											className="shadow-lg bg-white/80 py-2 z-[1000] min-w-full w-max rounded-sm max-h-96 overflow-auto"
+										>
+											{sortedMeetings.map((meeting) => (
+												<li
+													key={meeting._id}
+													className="dropdown-item flex items-center py-1 px-6 hover:bg-slate-100 text-blue-700 font-medium text-sm"
+												>
+													<svg
+														xmlns="http://www.w3.org/2000/svg"
+														className="w-5 h-5 ml-3 inline-block fill-current"
+														viewBox="0 0 24 24"
+													>
+														<path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zm-7-9h5v5h-5z" />
+													</svg>
+													{formatFunction(meeting.meetingDate)}
+												</li>
+											))}
+										</ul>
+									)}
 								</div>
 							</div>
 
