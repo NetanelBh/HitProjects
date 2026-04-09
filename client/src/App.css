@@ -22,7 +22,7 @@
 	width: 5.15px;
 	background: currentColor;
 	box-sizing: border-box;
-	animation: animloader1 1s linear infinite alternate;
+	animation: animloader1 1.5s ease-in-out infinite;
 }
 .loader::after {
 	content: "";
@@ -35,10 +35,28 @@
 	border-radius: 50%;
 	background: red;
 	box-sizing: border-box;
-	animation: animloader 1s linear infinite alternate;
+	animation: animloader 1.5s ease-in-out infinite
 }
 
 @keyframes animloader {
+    0% {
+        transform: translate(0px, 0px);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    /* The peak of the jump arc */
+    50% {
+        transform: translate(-62px, -40px);
+    }
+    /* Landing on the L */
+    90% { opacity: 1; }
+    100% {
+        transform: translate(-125px, 0px);
+        opacity: 0; /* Fade out at the end so it doesn't "snap" back */
+    }
+}
+
+/* @keyframes animloader {
 	0% {
 		transform: translate(0px, 0px) scaleX(1);
 	}
@@ -63,9 +81,18 @@
 	100% {
 		transform: translate(-125px, -9px) scaleX(1);
 	}
-}
+} */
 
 @keyframes animloader1 {
+    0%, 100% {
+        box-shadow: 0 -6px, -122.9px -8px;
+    }
+    50% {
+        box-shadow: 0 0px, -122.9px -15px;
+    }
+}
+
+/* @keyframes animloader1 {
 	0% {
 		box-shadow:
 			0 -6px,
@@ -82,7 +109,7 @@
 			0 0px,
 			-122.9px -16px;
 	}
-}
+} */
 
 .background_move {
   background-image: url('/images/background.jpg');
