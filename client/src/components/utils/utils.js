@@ -76,7 +76,7 @@ export const courseInputs = [
 		label: "שם הפרוייקט",
 		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white dark:bg-gray-700 " + // Base background
+			"bg-white dark:bg-gray-500 " + // Base background
 			"border border-gray-400 dark:border-gray-600 " + // Base border
 			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
 			"outline-none focus:outline-none " + // Remove default browser outline
@@ -90,12 +90,12 @@ export const courseInputs = [
 		label: "סמסטרים",
 		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white dark:bg-gray-700 " + // Base background
-        "border border-gray-400 dark:border-gray-600 " + // Base border
-        "w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
-        "outline-none focus:outline-none " + // Remove default browser outline
-        "focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
-        "focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "semesters",
 		type: "text",
 		placeholder: "לדוגמא: א-ב / ב-ג / א",
@@ -105,12 +105,12 @@ export const courseInputs = [
 		label: "תאריך התחלה",
 		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white dark:bg-gray-700 " + // Base background
-        "border border-gray-400 dark:border-gray-600 " + // Base border
-        "w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
-        "outline-none focus:outline-none " + // Remove default browser outline
-        "focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
-        "focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "startDate",
 		type: "Date",
 		placeholder: "לדוגמא: 1.1.2026",
@@ -120,12 +120,12 @@ export const courseInputs = [
 		label: "תאריך סיום",
 		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white dark:bg-gray-700 " + // Base background
-        "border border-gray-400 dark:border-gray-600 " + // Base border
-        "w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
-        "outline-none focus:outline-none " + // Remove default browser outline
-        "focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
-        "focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "endDate",
 		type: "Date",
 		placeholder: "לדוגמא: 31.12.2026",
@@ -138,7 +138,12 @@ export const studentInputs = [
 		label: "שם פרטי",
 		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all",
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "fname",
 		type: "text",
 	},
@@ -147,7 +152,12 @@ export const studentInputs = [
 		label: "שם משפחה",
 		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all",
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "lname",
 		type: "text",
 	},
@@ -156,7 +166,12 @@ export const studentInputs = [
 		label: "טלפון",
 		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all text-end",
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "phone",
 		type: "tel",
 	},
@@ -165,7 +180,12 @@ export const studentInputs = [
 		label: "מספר ת.ז.",
 		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all",
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "id",
 		type: "text",
 	},
