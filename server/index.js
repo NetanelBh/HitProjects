@@ -36,6 +36,7 @@ app.get('/keep-alive', (req, res) => {
 });
 
 cron.schedule("0 9 * * *", async () => {
+
 	console.log("🔔 daily reminder check for projects after 21 days");
 	await reminderCheck();
 }, {

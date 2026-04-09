@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import Project from "../models/projectsModel.js";
 import sendEmail from "../utils/sendEmailConfig.js";
 import reminderEmailTemplate from "../utils/reminderEmailTemplate.js";
@@ -22,7 +21,7 @@ export const reminderCheck = async () => {
 			try {
 				const html = reminderEmailTemplate(
 					project.name,
-					project.lastMeetingDate
+					(project.lastMeetingDate)
 				);
 
 				await sendEmail(
