@@ -212,7 +212,7 @@ const ProjectItem = () => {
 							</div>
 
 							{/* Sub-header: last meeting + meetings actions */}
-							<div className="flex flex-col items-start sm:flex-row sm:justify-between w-full gap-6">
+							<div className="flex flex-col items-end sm:flex-row sm:justify-between w-full gap-6">
 								{/* Right side (Add Meeting) */}
 								<div className="w-full sm:w-auto">
 									<p className="text-sm text-white font-bold mb-2">הוסף תאריך מפגש</p>
@@ -268,7 +268,7 @@ const ProjectItem = () => {
 											/>
 										</svg>
 									</button>
-									
+
 									{/* Dropdown list logic remains the same... */}
 									{isDropDownOpen && sortedMeetings.length > 0 && (
 										<ul
