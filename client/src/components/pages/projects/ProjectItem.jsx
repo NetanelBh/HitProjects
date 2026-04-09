@@ -217,8 +217,8 @@ const ProjectItem = () => {
 									<p className="text-sm text-white font-bold mb-2">הוסף תאריך מפגש</p>
 
 									{/* Right: Add Last Meeting Input with Stylish Calendar */}
-									<div className="flex justify-center gap-2">
-										<div className="max-w-md">
+									<div className="flex justify-center items-center gap-2 w-full">
+										<div className="flex-1 max-w-md">
 											<form className="space-y-8">
 												<input
 													value={lastMeeting}
@@ -233,7 +233,7 @@ const ProjectItem = () => {
 
 										<button
 											type="button"
-											className="mr-2 bg-gradient-to-l from-sky-500 via-blue-600 to-indigo-500 hover:brightness-110 active:brightness-110 w-10 h-10 cursor-pointer inline-flex items-center justify-center rounded-full border-none outline-none"
+											className="flex-shrink-0 bg-gradient-to-l from-sky-500 via-blue-600 to-indigo-500 hover:brightness-110 active:brightness-110 w-10 h-10 cursor-pointer inline-flex items-center justify-center rounded-full border-none outline-none"
 											onClick={addMeetingHandler}
 										>
 											<svg
