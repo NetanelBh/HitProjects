@@ -217,7 +217,7 @@ const ProjectItem = () => {
 									<p className="text-sm text-white font-bold mb-2">הוסף תאריך מפגש</p>
 
 									{/* Right: Add Last Meeting Input with Stylish Calendar */}
-									<div className="flex justify-center items-center gap-2 w-full">
+									<div className="flex justify-center items-center gap-4 sm:gap-2 w-full">
 										<div className="flex-1 max-w-md">
 											<form className="space-y-8">
 												<input
