@@ -22,7 +22,7 @@
 	width: 5.15px;
 	background: currentColor;
 	box-sizing: border-box;
-	animation: animloader1 1.5s ease-in-out infinite;
+	animation: animloader1 1s linear infinite alternate;
 }
 .loader::after {
 	content: "";
@@ -35,7 +35,7 @@
 	border-radius: 50%;
 	background: red;
 	box-sizing: border-box;
-	animation: animloader 1.5s ease-in-out infinite
+	animation: animloader 1s linear infinite alternate;
 }
 
 @keyframes animloader {
