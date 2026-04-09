@@ -75,9 +75,9 @@ const AddStudent = () => {
 			<div className="relative z-10 flex mt-12 justify-center p-4">
 				<div
 					dir="rtl"
-					className="max-w-lg w-full bg-white/80 dark:bg-gray-800/80 dark:text-white rounded-lg shadow-md px-8 py-10 flex flex-col items-center"
+					className="max-w-lg w-full bg-white/80 dark:bg-gray-800/80 rounded-lg shadow-md px-8 py-10 flex flex-col items-center"
 				>
-					<h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
+					<h1 className="text-xl font-bold text-center text-gray-700 dark:text-white mb-8">
 						הוספת סטודנט לפרוייקט
 					</h1>
 
