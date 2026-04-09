@@ -4,7 +4,7 @@ export const inputs = [
 		label: "שם פרטי",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md outline-blue-500 transition-all",
 		inputName: "fname",
 		type: "text",
 	},
@@ -13,7 +13,7 @@ export const inputs = [
 		label: "שם משפחה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md outline-blue-500 transition-all",
 		inputName: "lname",
 		type: "text",
 	},
@@ -22,7 +22,7 @@ export const inputs = [
 		label: "אימייל",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md outline-blue-500 transition-all",
 		inputName: "mail",
 		type: "text",
 	},
@@ -31,7 +31,7 @@ export const inputs = [
 		label: "סיסמה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm pl-8 pr-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm pl-8 pr-4 py-1 rounded-md outline-blue-500 transition-all",
 		inputName: "password",
 		type: "password",
 	},
@@ -40,7 +40,7 @@ export const inputs = [
 		label: "אימות סיסמה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm pl-8 pr-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm pl-8 pr-4 py-1 rounded-md outline-blue-500 transition-all",
 		inputName: "confirm",
 		type: "password",
 	},
@@ -74,18 +74,18 @@ export const courseInputs = [
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "שם הפרוייקט",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all",
 		inputName: "name",
 		type: "text",
 	},
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "סמסטרים",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all",
 		inputName: "semesters",
 		type: "text",
 		placeholder: "לדוגמא: א-ב / ב-ג / א",
@@ -93,9 +93,9 @@ export const courseInputs = [
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "תאריך התחלה",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all",
 		inputName: "startDate",
 		type: "Date",
 		placeholder: "לדוגמא: 1.1.2026",
@@ -103,9 +103,9 @@ export const courseInputs = [
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "תאריך סיום",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all",
 		inputName: "endDate",
 		type: "Date",
 		placeholder: "לדוגמא: 31.12.2026",
@@ -116,36 +116,36 @@ export const studentInputs = [
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "שם פרטי",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all",
 		inputName: "fname",
 		type: "text",
 	},
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "שם משפחה",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all",
 		inputName: "lname",
 		type: "text",
 	},
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "טלפון",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all text-end",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all text-end",
 		inputName: "phone",
 		type: "tel",
 	},
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "מספר ת.ז.",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md outline-blue-500 transition-all",
 		inputName: "id",
 		type: "text",
 	},
