@@ -4,7 +4,7 @@ export const inputs = [
 		label: "שם פרטי",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "fname",
 		type: "text",
 	},
@@ -13,7 +13,7 @@ export const inputs = [
 		label: "שם משפחה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "lname",
 		type: "text",
 	},
@@ -22,7 +22,7 @@ export const inputs = [
 		label: "אימייל",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "mail",
 		type: "text",
 	},
@@ -31,7 +31,7 @@ export const inputs = [
 		label: "סיסמה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm pl-8 pr-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm pl-8 pr-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "password",
 		type: "password",
 	},
@@ -40,7 +40,7 @@ export const inputs = [
 		label: "אימות סיסמה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm pl-8 pr-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm pl-8 pr-4 py-1 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "confirm",
 		type: "password",
 	},
@@ -76,7 +76,7 @@ export const courseInputs = [
 		label: "שם הפרוייקט",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "name",
 		type: "text",
 	},
@@ -85,7 +85,7 @@ export const courseInputs = [
 		label: "סמסטרים",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "semesters",
 		type: "text",
 		placeholder: "לדוגמא: א-ב / ב-ג / א",
@@ -95,7 +95,7 @@ export const courseInputs = [
 		label: "תאריך התחלה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "startDate",
 		type: "Date",
 		placeholder: "לדוגמא: 1.1.2026",
@@ -105,7 +105,7 @@ export const courseInputs = [
 		label: "תאריך סיום",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "endDate",
 		type: "Date",
 		placeholder: "לדוגמא: 31.12.2026",
@@ -118,7 +118,7 @@ export const studentInputs = [
 		label: "שם פרטי",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "fname",
 		type: "text",
 	},
@@ -127,7 +127,7 @@ export const studentInputs = [
 		label: "שם משפחה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "lname",
 		type: "text",
 	},
@@ -136,7 +136,7 @@ export const studentInputs = [
 		label: "טלפון",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all text-end",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all text-end",
 		inputName: "phone",
 		type: "tel",
 	},
@@ -145,7 +145,7 @@ export const studentInputs = [
 		label: "מספר ת.ז.",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-slate-200 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
+			"bg-white/80 border border-gray-400 w-full text-slate-900 text-sm px-4 py-2 rounded-md focus:bg-transparent outline-blue-500 transition-all",
 		inputName: "id",
 		type: "text",
 	},
