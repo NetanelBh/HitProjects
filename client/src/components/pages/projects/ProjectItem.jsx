@@ -128,7 +128,7 @@ const ProjectItem = () => {
 			phone: s.phone,
 		}));
 
-		exportToExcel(studentsList);
+		exportToExcel(studentsList, project.name);
 	};
 
 	const addMeetingHandler = async () => {

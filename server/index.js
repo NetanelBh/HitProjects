@@ -36,8 +36,13 @@ app.get('/keep-alive', (req, res) => {
 });
 
 cron.schedule("0 9 * * *", async () => {
-	console.log("🔔 Running daily reminder check...");
+	console.log("🔔 daily reminder check for projects after 21 days");
 	await reminderCheck();
+}, {
+	// Starts the timer immediately when the server boots
+	scheduled: true, 
+	// Automatically handles Summer/Winter time
+	timezone: "Asia/Jerusalem",
 });
 
 app.use("/auth", authRoute);

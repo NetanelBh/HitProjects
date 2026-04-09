@@ -168,7 +168,7 @@ export const calculateProgress = (startDate, endDate) => {
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 
-export const exportToExcel = async (studentsList) => {
+export const exportToExcel = async (studentsList, projectName) => {
 	const workbook = new ExcelJS.Workbook();
 	const worksheet = workbook.addWorksheet("סטודנטים");
 
@@ -241,7 +241,7 @@ export const exportToExcel = async (studentsList) => {
 	const file = new Blob([buffer], {
 		type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 	});
-	saveAs(file, "students.xlsx");
+	saveAs(file, `${projectName} - students list`);
 };
 
 export const formatFunction = (isoDate) => {
