@@ -78,7 +78,7 @@ export const courseInputs = [
 		inputStyle:
 			"bg-white dark:bg-gray-500 " + // Base background
 			"border border-gray-400 dark:border-gray-600 " + // Base border
-			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"w-full max-w-md mx-auto appearance-none text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
 			"outline-none focus:outline-none " + // Remove default browser outline
 			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
 			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
@@ -92,7 +92,7 @@ export const courseInputs = [
 		inputStyle:
 			"bg-white dark:bg-gray-500 " + // Base background
 			"border border-gray-400 dark:border-gray-600 " + // Base border
-			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"w-full max-w-md mx-auto appearance-none text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
 			"outline-none focus:outline-none " + // Remove default browser outline
 			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
 			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
@@ -107,7 +107,7 @@ export const courseInputs = [
 		inputStyle:
 			"bg-white dark:bg-gray-500 " + // Base background
 			"border border-gray-400 dark:border-gray-600 " + // Base border
-			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"w-full max-w-md mx-auto appearance-none text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
 			"outline-none focus:outline-none " + // Remove default browser outline
 			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
 			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
@@ -122,7 +122,7 @@ export const courseInputs = [
 		inputStyle:
 			"bg-white dark:bg-gray-500 " + // Base background
 			"border border-gray-400 dark:border-gray-600 " + // Base border
-			"w-full text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"w-full max-w-md mx-auto appearance-none text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
 			"outline-none focus:outline-none " + // Remove default browser outline
 			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
 			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
