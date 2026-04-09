@@ -31,8 +31,8 @@ mongoConnection();
 
 // Keep railway alive and not make it sleep - using uptimerobot
 app.get('/keep-alive', (req, res) => {
-  console.log('Poked by UptimeRobot! Time:', new Date().toISOString());
-  res.status(200).send('I am awake');
+  console.log('HIT projects server is alive:', new Date().toISOString());
+  res.status(200).send('Great job');
 });
 
 cron.schedule("0 9 * * *", async () => {
