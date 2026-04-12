@@ -4,7 +4,12 @@ export const inputs = [
 		label: "שם פרטי",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md outline-blue-500 transition-all",
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full max-w-md mx-auto appearance-none text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "fname",
 		type: "text",
 	},
@@ -13,7 +18,12 @@ export const inputs = [
 		label: "שם משפחה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md outline-blue-500 transition-all",
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full max-w-md mx-auto appearance-none text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "lname",
 		type: "text",
 	},
@@ -22,7 +32,12 @@ export const inputs = [
 		label: "אימייל",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white border border-gray-400 w-full text-slate-900 text-sm px-4 py-1 rounded-md outline-blue-500 transition-all",
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full max-w-md mx-auto appearance-none text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "mail",
 		type: "text",
 	},
@@ -31,7 +46,12 @@ export const inputs = [
 		label: "סיסמה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white border border-gray-400 w-full text-slate-900 text-sm pl-8 pr-4 py-1 rounded-md outline-blue-500 transition-all",
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full max-w-md mx-auto appearance-none text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "password",
 		type: "password",
 	},
@@ -40,7 +60,12 @@ export const inputs = [
 		label: "אימות סיסמה",
 		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
 		inputStyle:
-			"bg-white border border-gray-400 w-full text-slate-900 text-sm pl-8 pr-4 py-1 rounded-md outline-blue-500 transition-all",
+			"bg-white dark:bg-gray-500 " + // Base background
+			"border border-gray-400 dark:border-gray-600 " + // Base border
+			"w-full max-w-md mx-auto appearance-none text-slate-900 dark:text-white text-sm px-4 py-2 rounded-md transition-all " +
+			"outline-none focus:outline-none " + // Remove default browser outline
+			"focus:ring-2 focus:ring-blue-500 focus:border-transparent " + // Add a clean blue ring
+			"focus:bg-white dark:focus:bg-gray-700", // FORCE background to stay solid on focus
 		inputName: "confirm",
 		type: "password",
 	},
