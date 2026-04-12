@@ -120,7 +120,7 @@ const Register = () => {
 							<span className="text-[13px] text-slate-600 dark:text-white">יש לך כבר חשבון? </span>
 							<NavLink
 								to="/"
-								className="text-blue-500 font-medium hover:underline ml-1 whitespace-nowrap"
+								className="text-blue-400 font-medium hover:underline ml-1 whitespace-nowrap"
 							>
 								כניסה
 							</NavLink>
