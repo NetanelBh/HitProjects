@@ -117,7 +117,7 @@ const Register = () => {
 						</form>
 
 						<div className="mt-4 text-center">
-							<span className="text-[13px] text-slate-600">יש לך כבר חשבון? </span>
+							<span className="text-[13px] text-slate-600 dark:text-white">יש לך כבר חשבון? </span>
 							<NavLink
 								to="/"
 								className="text-blue-600 font-medium hover:underline ml-1 whitespace-nowrap"
