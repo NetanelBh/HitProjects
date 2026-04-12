@@ -2,7 +2,7 @@ export const inputs = [
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "שם פרטי",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
 			"bg-white dark:bg-gray-500 " + // Base background
 			"border border-gray-400 dark:border-gray-600 " + // Base border
@@ -16,7 +16,7 @@ export const inputs = [
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "שם משפחה",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
 			"bg-white dark:bg-gray-500 " + // Base background
 			"border border-gray-400 dark:border-gray-600 " + // Base border
@@ -30,7 +30,7 @@ export const inputs = [
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "אימייל",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
 			"bg-white dark:bg-gray-500 " + // Base background
 			"border border-gray-400 dark:border-gray-600 " + // Base border
@@ -44,7 +44,7 @@ export const inputs = [
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "סיסמה",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
 			"bg-white dark:bg-gray-500 " + // Base background
 			"border border-gray-400 dark:border-gray-600 " + // Base border
@@ -58,7 +58,7 @@ export const inputs = [
 	{
 		wrapDivStyle: "flex items-start flex-col justify-start",
 		label: "אימות סיסמה",
-		labelStyle: "text-slate-900 text-sm font-medium mb-2 block",
+		labelStyle: "text-slate-900 dark:text-white text-sm font-medium mb-2 block",
 		inputStyle:
 			"bg-white dark:bg-gray-500 " + // Base background
 			"border border-gray-400 dark:border-gray-600 " + // Base border
