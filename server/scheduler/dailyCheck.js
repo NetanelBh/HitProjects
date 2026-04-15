@@ -8,7 +8,12 @@ export const reminderCheck = async () => {
 		const projectsToRemind = await Project.find({
 			reminderSent: false,
 			lastMeetingDate: {
+				// Check if 21 days have passed
 				$lte: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000),
+			},
+			endDate: {
+				// Projects that are not completed
+				$gt: new Date(),
 			},
 		});
 
@@ -19,15 +24,12 @@ export const reminderCheck = async () => {
 
 		for (const project of projectsToRemind) {
 			try {
-				const html = reminderEmailTemplate(
-					project.name,
-					(project.lastMeetingDate)
-				);
+				const html = reminderEmailTemplate(project.name, project.lastMeetingDate);
 
 				await sendEmail(
 					process.env.MY_EMAIL, // send to yourself
 					`Reminder: ${project.name}`,
-					html
+					html,
 				);
 
 				project.reminderSent = true;

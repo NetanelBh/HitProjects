@@ -29,7 +29,6 @@ const projectSchema = new Schema(
 				ref: "Student",
 			},
 		],
-
 		// 🧠 Core logic
 		lastMeetingDate: {type: Date},
 
