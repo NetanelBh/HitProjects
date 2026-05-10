@@ -1,7 +1,7 @@
 import "dotenv/config";
 import cors from "cors";
-// Cron for the daily check if should send a reminder
-import cron from "node-cron";
+// // Cron for the daily check if should send a reminder
+// import cron from "node-cron";
 import express from "express";
 
 import authRoute from "./routers/auth.js";
@@ -12,7 +12,7 @@ import meetingRoute from "./routers/meetingsRouter.js";
 import mongoConnection from "./DBConnection/mongoConnection.js";
 import authenticationMiddleware from "./middleware/authentication.js";
 
-import { reminderCheck } from "./scheduler/dailyCheck.js";
+// import { reminderCheck } from "./scheduler/dailyCheck.js";
 
 const app = express();
 
@@ -35,23 +35,10 @@ app.get('/keep-alive', (req, res) => {
   res.status(200).send('Great job');
 });
 
-cron.schedule("0 9 * * *", async () => {
-
-	console.log("🔔 daily reminder check for projects after 21 days");
-	await reminderCheck();
-}, {
-	// Starts the timer immediately when the server boots
-	scheduled: true, 
-	// Automatically handles Summer/Winter time
-	timezone: "Asia/Jerusalem",
-});
-
 app.use("/auth", authRoute);
 app.use("/users", authenticationMiddleware, usersRoute);
 app.use("/meetings", authenticationMiddleware, meetingRoute);
 app.use("/students", authenticationMiddleware, studentRoute);
 app.use("/projects", authenticationMiddleware, projectRoute);
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT} ✅`);
-});
+export default app;
